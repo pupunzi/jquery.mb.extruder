@@ -1,0 +1,19 @@
+jquery.mb.extruder
+
+>> to ADD >>
+
+    1. manage inline subcontent.
+    2. extruderleft as child of a DOM element.
+    3. bottom and right positioning.
+
+1.6
+    1. Removed the ".content" div from HTML
+    2. support content defined in HTML
+
+1.5
+  modified the flipText behavior.
+  added "positionFixed" param to control the position of the extruder (true id default and the extruder doesn't scroll with the page; if set to false it scrolls).
+  added a method to disable/enable a voice on the fly: $.fn.disableExtruderVoice and $.fn.enableExtruderVoice.
+
+1.0
+  Initial release.
