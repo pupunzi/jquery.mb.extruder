@@ -6,6 +6,9 @@ jquery.mb.extruder
     2. extruderleft as child of a DOM element.
     3. bottom and right positioning.
 
+1.6.5
+    1. added closeAllPanel property on the init function to choose if subpanels should close or not once extruder closes.
+
 1.6
     1. Removed the ".content" div from HTML
     2. support content defined in HTML
