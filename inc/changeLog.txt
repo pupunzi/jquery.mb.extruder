@@ -2,12 +2,17 @@ jquery.mb.extruder
 
 >> to ADD >>
 
-    1. manage inline subcontent.
-    2. extruderleft as child of a DOM element.
-    3. bottom and right positioning.
+    1. bottom and right positioning.
+
+1.7.0
+    1. Extruder is child of any DOM element.
+    2. Extruder can have inline content. (not only Ajax).
+    3. better close event.
+    4. added autoCloseTime parameter to specify time in milliseconds the extruder should close on mouse out (0 = never).
+    4. added hidePanelsOnClose parameter to specify if subpanels must should hide on extruder close.
 
 1.6.5
-    1. added closeAllPanel property on the init function to choose if subpanels should close or not once extruder closes.
+    1. added hidePanelsOnClose property on the init function to choose if subpanels should close or not once extruder closes.
 
 1.6
     1. Removed the ".content" div from HTML

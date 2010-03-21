@@ -71,7 +71,7 @@
   /*height:150px;*/
   position:absolute;
   /*overflow:hidden;*/
-  right:-2px;
+  right:0px;
   -moz-border-radius:0 10px 10px 0;
   -webkit-border-top-right-radius:10px;
   -webkit-border-bottom-right-radius:10px;

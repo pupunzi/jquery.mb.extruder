@@ -11,13 +11,15 @@
 
 /*
  * Name:jquery.mb.extruder
- * Version: 1.6.5
+ * Version: 1.8.0
  * dependencies: jquery.metadata.js, jquery.mb.flipV.js, jquery.hoverintent.js
  */
 
 (function($) {
-  document.extruderLeft = 0;
-  document.extruderTop = 0;
+  document.extruder=new Object();
+  document.extruder.left = 0;
+  document.extruder.top = 0;
+  document.extruder.idx=0;
   var isIE=$.browser.msie;
 
   $.mbExtruder= {
@@ -28,14 +30,15 @@
       positionFixed:true,
       sensibility:800,
       position:"top",
+      top:"auto",
       extruderOpacity:1,
-      flapDim:100,
       flapMargin:25,
       textOrientation:"bt", // or "tb" (top-bottom or bottom-top)
       onExtOpen:function(){},
       onExtContentLoad:function(){},
       onExtClose:function(){},
-      closeAllPanels:true,
+      hidePanelsOnClose:true,
+      autoCloseTime:0,
       slideTimer:300
     },
 
@@ -44,21 +47,25 @@
         this.options = {};
         $.extend (this.options, $.mbExtruder.defaults);
         $.extend (this.options, options);
+        this.idx=document.extruder.idx;
+        document.extruder.idx++;
         var extruder,extruderContent,wrapper,extruderStyle,wrapperStyle,txt,timer;
         extruder= $(this);
         extruderContent=$(this).html();
 
         extruder.css("zIndex",100);
 
-        var c= $("<div/>").addClass("content");
+        var extW= this.options.position=="left"?0: this.options.width;
+
+        var c= $("<div/>").addClass("content").css({overflow:"hidden", width:extW});
         c.append(extruderContent);
         extruder.html(c);
 
         var position=this.options.positionFixed?"fixed":"absolute";
 
         if (this.options.position=="top"){
-          document.extruderTop++;
-          if (document.extruderTop>1){
+          document.extruder.top++;
+          if (document.extruder.top>1){
             alert("more than 1 mb.extruder on top is not supported jet... hope soon!");
             return;
           }
@@ -68,12 +75,14 @@
         extruder.addClass(this.options.position);
         extruderStyle=this.options.position=="top"?
                       {position:position,top:0,left:"50%",marginLeft:-this.options.width/2,width:this.options.width}:
-                      {position:position,top:0,left:-(this.options.width)};
+                      {position:position,top:0,left:0,width:0};
+        //                      {position:position,top:0,left:-(this.options.width)};
         extruder.css(extruderStyle);
         if(!isIE) extruder.css({opacity:this.options.extruderOpacity});
         extruder.wrapInner("<div class='ext_wrapper'></div>");
         wrapper= extruder.find(".ext_wrapper");
-        wrapperStyle={width:this.options.width,position:"absolute"};
+
+        wrapperStyle={position:"absolute", width:this.options.position=="left"?"":this.options.width};
         wrapper.css(wrapperStyle);
 
         if ($.metadata){
@@ -92,7 +101,7 @@
           var labelH=extruder.find('.flapLabel').getFlipTextDim()[1];
           extruder.find('.flapLabel').mbFlipText(orientation);
         }else{
-          extruder.find(".flapLabel").html(txt).css({whiteSpace:"noWrap",width:this.options.flapDim});
+          extruder.find(".flapLabel").html(txt).css({whiteSpace:"noWrap"});
         }
 
         if (extruder.attr("extUrl")){
@@ -102,35 +111,36 @@
             callback: function(){if (extruder.get(0).options.onExtContentLoad) extruder.get(0).options.onExtContentLoad();}
           });
         }else{
-          var container=$("<div>").addClass("text");
+          var container=$("<div>").addClass("text").css({width:extruder.get(0).options.width-20, height:extruder.height()-20, overflowY:"auto"});
           c.wrapInner(container);
           extruder.setExtruderVoicesAction();
         }
-        extruder.find('.flap .flapLabel').hoverIntent({
-          over: function(){
-            extruder.mb_bringToFront();
-            extruder.openMbExtruder();
-          },
-          out: function(){},
-          sensitivity: 2,
-          interval: this.options.sensibility
-        });
+
         extruder.find('.flap').bind("click",function(){
           extruder.openMbExtruder();
         });
+
         c.bind("mouseleave", function(){
+          $(document).one("click.extruder"+extruder.get(0).idx,function(){extruder.closeMbExtruder();});
           timer=setTimeout(function(){
-            extruder.closeMbExtruder();
-          },1000);
-        }).bind("mouseenter", function(){clearTimeout(timer);});
+
+            if(extruder.get(0).options.autoCloseTime > 0){
+              extruder.closeMbExtruder();
+            }
+          },extruder.get(0).options.autoCloseTime);
+        }).bind("mouseenter", function(){clearTimeout(timer); $(document).unbind("click.extruder"+extruder.get(0).idx);});
 
         if (this.options.position=="left"){
-          c.css({width:this.options.width, height:"100%"});
-          extruder.find('.flap').css({marginRight:-40,top:100+document.extruderLeft});
-          document.extruderLeft+= labelH+this.options.flapMargin;
+          c.css({ height:"100%"});
+
+          if(this.options.top=="auto") {
+            extruder.find('.flap').css({marginRight:-40,top:100+document.extruder.left});
+            document.extruder.left+= labelH+this.options.flapMargin;
+          }else{
+            extruder.find('.flap').css({marginRight:-40,top:this.options.top});
+          }
           var clicDiv=$("<div/>").css({position:"absolute",top:0,left:0,width:"100%",height:"100%",background:"transparent"});
           extruder.find('.flap').append(clicDiv);
-
         }
       });
     },
@@ -151,12 +161,14 @@
       var data=this.options.data;
       var where=$(this), voice;
       var cb= this.options.callback;
+      var container=$("<div>").addClass("container").css({width:$(this).get(0).options.width});
+      where.find(".content").wrapInner(container);
       $.ajax({
         type: "POST",
         url: url,
         data: data,
         success: function(html){
-          where.find(".content").append(html);
+          where.find(".container").append(html);
           voice=where.find(".voice");
           voice.hover(function(){$(this).addClass("hover");},function(){$(this).removeClass("hover");});
           where.setExtruderVoicesAction();
@@ -166,34 +178,42 @@
         }
       });
     },
-
-    openMbExtruder:function(){
+    openMbExtruder:function(c){
       var extruder= $(this);
+      var opt= extruder.get(0).options;
+      $(document).unbind("click.extruder"+extruder.get(0).idx);
       extruder.addClass("open");
       if(!isIE) extruder.css("opacity",1);
-      var position= extruder.get(0).options.position;
+      var position= opt.position;
       extruder.mb_bringToFront();
       if (position=="top"){
-        extruder.find('.content').slideDown( extruder.get(0).options.slideTimer);
-        if(extruder.get(0).options.onExtOpen) extruder.get(0).options.onExtOpen();
+        extruder.find('.content').slideDown( opt.slideTimer);
+        if(opt.onExtOpen) opt.onExtOpen();
       }else{
         if(!isIE) $(this).css("opacity",1);
-        extruder.animate({ left: 0 }, extruder.get(0).options.slideTimer);
-        if(extruder.get(0).options.onExtOpen) extruder.get(0).options.onExtOpen();
+        extruder.find('.content').css({overflowX:"hidden"});
+        extruder.find('.content').animate({ width: opt.width}, opt.slideTimer);
+        if(opt.onExtOpen) opt.onExtOpen();
+      }
+      if (c) {
+        setTimeout(function(){
+          $(document).one("click.extruder"+extruder.get(0).idx,function(){extruder.closeMbExtruder(); console.debug(extruder.get(0).idx)});
+        },100);
       }
     },
-
     closeMbExtruder:function(){
       var extruder= $(this);
       var opt= extruder.get(0).options;
       extruder.removeClass("open");
+      $(document).unbind("click.extruder"+extruder.get(0).idx);
       if(!isIE) extruder.css("opacity",opt.extruderOpacity);
-      if(opt.closeAllPanels) extruder.closeAllPanels();
+      if(opt.hidePanelsOnClose) extruder.hidePanelsOnClose();
       if (opt.position=="top"){
         extruder.find('.content').slideUp(opt.slideTimer);
         if(opt.onExtClose) opt.onExtClose();
       }else if (opt.position=="left"){
-        extruder.animate({ left: -opt.width }, opt.slideTimer,function(){
+        extruder.find('.content').animate({ width: 0 }, opt.slideTimer,function(){
+          extruder.find('.content').css({overflow:"hidden"});
           if(opt.onExtClose) opt.onExtClose();
         });
       }
@@ -218,7 +238,6 @@
 
   $.fn.setExtruderVoicesAction=function(){
     var extruder=$(this);
-    var opt= extruder.get(0).options;
     var voices= $(this).find(".voice");
     voices.each(function(){
       var voice=$(this);
@@ -229,9 +248,8 @@
         if (voice.metadata().disabled) voice.attr("disabled", voice.metadata().disabled);
       }
 
-      if (voice.attr("disabled")){
+      if (voice.attr("disabled"))
         voice.disableExtruderVoice();
-      }
 
       if (voice.attr("panel") && voice.attr("panel")!="false"){
         voice.append("<span class='settingsBtn'/>");
@@ -244,7 +262,7 @@
                   $(this).not(".sel").css({opacity:.5});
                 }).click(function(){
           if ($(this).parents().hasClass("sel")){
-            extruder.closeAllPanels();
+            extruder.hidePanelsOnClose();
             return;
           }
           extruder.find(".optionsPanel").slideUp(400,function(){$(this).remove();});
@@ -261,7 +279,7 @@
               content.children()
                       .addClass("panelVoice")
                       .click(function(){
-                extruder.closeAllPanels();
+                extruder.hidePanelsOnClose();
                 extruder.closeMbExtruder();
               });
               content.slideDown(400);
@@ -281,16 +299,17 @@
 
       if ((!voice.attr("panel") ||voice.attr("panel")=="false" ) && (!voice.attr("disabled") || voice.attr("disabled")!="true")){
         voice.find(".label").click(function(){
-          extruder.closeAllPanels();
+          extruder.hidePanelsOnClose();
           extruder.closeMbExtruder();
         });
       }
     });
-
   };
 
   $.fn.disableExtruderVoice=function(){
     var voice=$(this);
+    voice.removeClass("sel");
+    voice.next(".optionsPanel").slideUp(400,function(){$(this).remove();});
     voice.attr("disabled",true);
     voice.find(".label").css("opacity",.4);
     voice.hover(function(){$(this).removeClass("hover");},function(){$(this).removeClass("hover");});
@@ -307,11 +326,12 @@
     voice.attr("disabled",false);
     voice.find(".label").css("opacity",1);
     voice.find(".label").removeClass("disabled").css("cursor","pointer");
-    voice.find(".settingsBtn").show();
     voice.unbind("click");
+    voice.find(".settingsBtn").show()
+//            .click();
   };
 
-  $.fn.closeAllPanels=function(){
+  $.fn.hidePanelsOnClose=function(){
     var voices= $(this).find(".voice");
     $(this).find(".optionsPanel").slideUp(400,function(){$(this).remove();});
     voices.removeClass("sel");
