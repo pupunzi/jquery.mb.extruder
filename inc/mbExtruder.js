@@ -55,13 +55,27 @@
 
         extruder.css("zIndex",100);
 
-        var extW= this.options.position=="left"?0: this.options.width;
+        var extW= this.options.position=="left"?1: this.options.width;
 
         var c= $("<div/>").addClass("content").css({overflow:"hidden", width:extW});
         c.append(extruderContent);
         extruder.html(c);
 
         var position=this.options.positionFixed?"fixed":"absolute";
+        extruder.addClass("extruder");
+        extruder.addClass(this.options.position);
+        extruderStyle=this.options.position=="top"?
+                      {position:position,top:0,left:"50%",marginLeft:-this.options.width/2,width:this.options.width}:
+                      {position:position,top:0,left:0,width:1};
+        //                      {position:position,top:0,left:-(this.options.width)};
+        extruder.css(extruderStyle);
+        if(!isIE) extruder.css({opacity:this.options.extruderOpacity});
+        extruder.wrapInner("<div class='ext_wrapper'></div>");
+        wrapper= extruder.find(".ext_wrapper");
+
+        wrapperStyle={position:"absolute", width:this.options.position=="left"?1:this.options.width};
+        wrapper.css(wrapperStyle);
+
 
         if (this.options.position=="top"){
           document.extruder.top++;
@@ -71,19 +85,6 @@
           }
         }
 
-        extruder.addClass("extruder");
-        extruder.addClass(this.options.position);
-        extruderStyle=this.options.position=="top"?
-                      {position:position,top:0,left:"50%",marginLeft:-this.options.width/2,width:this.options.width}:
-                      {position:position,top:0,left:0,width:0};
-        //                      {position:position,top:0,left:-(this.options.width)};
-        extruder.css(extruderStyle);
-        if(!isIE) extruder.css({opacity:this.options.extruderOpacity});
-        extruder.wrapInner("<div class='ext_wrapper'></div>");
-        wrapper= extruder.find(".ext_wrapper");
-
-        wrapperStyle={position:"absolute", width:this.options.position=="left"?"":this.options.width};
-        wrapper.css(wrapperStyle);
 
         if ($.metadata){
           $.metadata.setType("class");
@@ -178,6 +179,7 @@
         }
       });
     },
+
     openMbExtruder:function(c){
       var extruder= $(this);
       var opt= extruder.get(0).options;
@@ -191,6 +193,7 @@
         if(opt.onExtOpen) opt.onExtOpen();
       }else{
         if(!isIE) $(this).css("opacity",1);
+        extruder.find('.ext_wrapper').css({width:""});
         extruder.find('.content').css({overflowX:"hidden"});
         extruder.find('.content').animate({ width: opt.width}, opt.slideTimer);
         if(opt.onExtOpen) opt.onExtOpen();
@@ -212,7 +215,8 @@
         extruder.find('.content').slideUp(opt.slideTimer);
         if(opt.onExtClose) opt.onExtClose();
       }else if (opt.position=="left"){
-        extruder.find('.content').animate({ width: 0 }, opt.slideTimer,function(){
+        extruder.find('.content').animate({ width: 1 }, opt.slideTimer,function(){
+          extruder.find('.ext_wrapper').css({width:1});
           extruder.find('.content').css({overflow:"hidden"});
           if(opt.onExtClose) opt.onExtClose();
         });
