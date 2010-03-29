@@ -182,8 +182,8 @@
 
     openMbExtruder:function(c){
       var extruder= $(this);
+      $(document).unbind("click.extruder"+extruder.get(0).idx);
       var opt= extruder.get(0).options;
-      //$(document).unbind("click.extruder"+extruder.get(0).idx);
       extruder.addClass("open");
       if(!isIE) extruder.css("opacity",1);
       var position= opt.position;
