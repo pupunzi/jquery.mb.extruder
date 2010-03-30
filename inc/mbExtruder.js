@@ -11,9 +11,10 @@
 
 /*
  * Name:jquery.mb.extruder
- * Version: 1.8.0
+ * Version: 1.8.1
  * dependencies: jquery.metadata.js, jquery.mb.flipV.js, jquery.hoverintent.js
  */
+
 
 (function($) {
   document.extruder=new Object();
