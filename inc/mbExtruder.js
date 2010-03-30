@@ -153,7 +153,6 @@
         callback:function(){}
       };
       $.extend (this.options, options);
-
       if (!this.options.url || this.options.url.length==0){
         alert("internal error: no URL to call");
         return;
