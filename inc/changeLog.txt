@@ -4,6 +4,9 @@ jquery.mb.extruder
 
     1. bottom and right positioning.
 
+1.8.1
+    1. bugfix for Webkit browsers: the flap didn't align well.
+
 1.8.0
     1. Extruder is child of any DOM element.
     2. Extruder can have inline content. (not only Ajax).
