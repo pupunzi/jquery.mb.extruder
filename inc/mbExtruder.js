@@ -215,9 +215,10 @@
         extruder.find('.content').slideUp(opt.slideTimer);
         if(opt.onExtClose) opt.onExtClose();
       }else if (opt.position=="left"){
+        extruder.find('.content').css({overflow:"hidden", display:"none"});        
         extruder.find('.content').animate({ width: 1 }, opt.slideTimer,function(){
           extruder.find('.ext_wrapper').css({width:1});
-          extruder.find('.content').css({overflow:"hidden"});
+          extruder.find('.content').css({overflow:"hidden",display:"none"});
           if(opt.onExtClose) opt.onExtClose();
         });
       }
