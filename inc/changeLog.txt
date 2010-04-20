@@ -4,6 +4,9 @@ jquery.mb.extruder
 
     1. bottom and right positioning.
 
+1.8.5
+    1. Add close extruder on flap click.
+
 1.8.1
     1. bugfix for Webkit browsers: the flap didn't align well.
 
@@ -12,7 +15,7 @@ jquery.mb.extruder
     2. Extruder can have inline content. (not only Ajax).
     3. better close event.
     4. added autoCloseTime parameter to specify time in milliseconds the extruder should close on mouse out (0 = never).
-    4. added hidePanelsOnClose parameter to specify if subpanels must should hide on extruder close.
+    5. added hidePanelsOnClose parameter to specify if subpanels must should hide on extruder close.
 
 1.6
     1. Removed the ".content" div from HTML

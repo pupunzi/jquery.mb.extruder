@@ -11,7 +11,7 @@
 
 /*
  * Name:jquery.mb.extruder
- * Version: 1.8.1
+ * Version: 1.8.5
  * dependencies: jquery.metadata.js, jquery.mb.flipV.js, jquery.hoverintent.js
  */
 
@@ -25,7 +25,7 @@
 
   $.mbExtruder= {
     author:"Matteo Bicocchi",
-    version:"1.6",
+    version:"1.8.5",
     defaults:{
       width:350,
       positionFixed:true,
@@ -119,7 +119,11 @@
         }
 
         extruder.find('.flap').bind("click",function(){
-          extruder.openMbExtruder();
+          if (!extruder.attr("open")){
+            extruder.openMbExtruder();
+          }else{
+            extruder.closeMbExtruder();
+          }
         });
 
         c.bind("mouseleave", function(){
@@ -182,6 +186,7 @@
 
     openMbExtruder:function(c){
       var extruder= $(this);
+      extruder.attr("open",true);
       $(document).unbind("click.extruder"+extruder.get(0).idx);
       var opt= extruder.get(0).options;
       extruder.addClass("open");
@@ -206,6 +211,7 @@
     },
     closeMbExtruder:function(){
       var extruder= $(this);
+      extruder.removeAttr("open");      
       var opt= extruder.get(0).options;
       extruder.removeClass("open");
       $(document).unbind("click.extruder"+extruder.get(0).idx);
