@@ -287,10 +287,9 @@
             success: function(html){
               var c= $(html);
               content.html(c);
-              content.children()
+              content.children().not(".text")
                       .addClass("panelVoice")
                       .click(function(){
-                extruder.hidePanelsOnClose();
                 extruder.closeMbExtruder();
               });
               content.slideDown(400);
