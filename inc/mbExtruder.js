@@ -33,7 +33,7 @@
       position:"top",
       top:"auto",
       extruderOpacity:1,
-      flapMargin:25,
+      flapMargin:35,
       textOrientation:"bt", // or "tb" (top-bottom or bottom-top)
       onExtOpen:function(){},
       onExtContentLoad:function(){},
@@ -140,10 +140,10 @@
           c.css({ height:"100%"});
 
           if(this.options.top=="auto") {
-            extruder.find('.flap').css({marginRight:-40,top:100+document.extruder.left});
+            extruder.find('.flap').css({top:100+document.extruder.left});
             document.extruder.left+= labelH+this.options.flapMargin;
           }else{
-            extruder.find('.flap').css({marginRight:-40,top:this.options.top});
+            extruder.find('.flap').css({top:this.options.top});
           }
           var clicDiv=$("<div/>").css({position:"absolute",top:0,left:0,width:"100%",height:"100%",background:"transparent"});
           extruder.find('.flap').append(clicDiv);
@@ -221,10 +221,10 @@
         extruder.find('.content').slideUp(opt.slideTimer);
         if(opt.onExtClose) opt.onExtClose();
       }else if (opt.position=="left"){
-        extruder.find('.content').css({overflow:"hidden", display:"none"});        
+        extruder.find('.content').css({overflow:"hidden", display:"none"});        //, display:"none"
         extruder.find('.content').animate({ width: 1 }, opt.slideTimer,function(){
           extruder.find('.ext_wrapper').css({width:1});
-          extruder.find('.content').css({overflow:"hidden",display:"none"});
+          extruder.find('.content').css({overflow:"hidden",display:"none"}); //,display:"none"
           if(opt.onExtClose) opt.onExtClose();
         });
       }
