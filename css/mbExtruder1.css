@@ -101,7 +101,7 @@
     background:url("../elements/extruder_blank.png") no-repeat bottom left;
     text-shadow:#333 2px 2px 2px;
   }
- .extruder .voice.disabled{
+ .extruder .voice .disabled{
    cursor:default;
   }
 .extruder .text{

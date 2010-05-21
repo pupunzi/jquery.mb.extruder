@@ -30,7 +30,7 @@
     author:"Matteo Bicocchi",
     version:"1.1",
     flipText:function(tb){
-      var UTF8encoded=$("meta[http-equiv=Content-Type]").attr("content").indexOf("utf-8")>-1;
+      var UTF8encoded=$("meta[http-equiv=Content-Type]").attr("content") && $("meta[http-equiv=Content-Type]").attr("content").indexOf("utf-8")>-1;
       return this.each(function(){
         var el= $(this);
         var h="";

@@ -66,8 +66,8 @@
         extruder.addClass("extruder");
         extruder.addClass(this.options.position);
         extruderStyle=this.options.position=="top"?
-                      {position:position,top:0,left:"50%",marginLeft:-this.options.width/2,width:this.options.width}:
-                      {position:position,top:0,left:0,width:1};
+        {position:position,top:0,left:"50%",marginLeft:-this.options.width/2,width:this.options.width}:
+        {position:position,top:0,left:0,width:1};
         //                      {position:position,top:0,left:-(this.options.width)};
         extruder.css(extruderStyle);
         if(!isIE) extruder.css({opacity:this.options.extruderOpacity});
@@ -166,7 +166,9 @@
       var data=this.options.data;
       var where=$(this), voice;
       var cb= this.options.callback;
-      var container=$("<div>").addClass("container").css({width:$(this).get(0).options.width});
+      var container=$("<div>").addClass("container");
+      if ($.browser.msie && $.browser.version>7)
+        container.css({width:$(this).get(0).options.width});
       where.find(".content").wrapInner(container);
       $.ajax({
         type: "POST",
@@ -211,7 +213,7 @@
     },
     closeMbExtruder:function(){
       var extruder= $(this);
-      extruder.removeAttr("open");      
+      extruder.removeAttr("open");
       var opt= extruder.get(0).options;
       extruder.removeClass("open");
       $(document).unbind("click.extruder"+extruder.get(0).idx);
@@ -256,10 +258,10 @@
         $.metadata.setType("class");
         if (voice.metadata().panel) voice.attr("panel",voice.metadata().panel);
         if (voice.metadata().data) voice.attr("data",voice.metadata().data);
-        if (voice.metadata().disabled) voice.attr("disabled", voice.metadata().disabled);
+        if (voice.metadata().disabled) voice.attr("setDisabled", voice.metadata().disabled);
       }
 
-      if (voice.attr("disabled"))
+      if (voice.attr("setDisabled"))
         voice.disableExtruderVoice();
 
       if (voice.attr("panel") && voice.attr("panel")!="false"){
@@ -307,7 +309,7 @@
         });
       }
 
-      if ((!voice.attr("panel") ||voice.attr("panel")=="false" ) && (!voice.attr("disabled") || voice.attr("disabled")!="true")){
+      if ((!voice.attr("panel") ||voice.attr("panel")=="false" ) && (!voice.attr("setDisabled") || voice.attr("setDisabled")!="true")){
         voice.find(".label").click(function(){
           extruder.hidePanelsOnClose();
           extruder.closeMbExtruder();
@@ -318,12 +320,13 @@
 
   $.fn.disableExtruderVoice=function(){
     var voice=$(this);
+    var label = voice.find(".label");
     voice.removeClass("sel");
     voice.next(".optionsPanel").slideUp(400,function(){$(this).remove();});
-    voice.attr("disabled",true);
-    voice.find(".label").css("opacity",.4);
+    voice.attr("setDisabled",true);
+    label.css("opacity",.4);
     voice.hover(function(){$(this).removeClass("hover");},function(){$(this).removeClass("hover");});
-    voice.find(".label").addClass("disabled").css("cursor","default");
+    label.addClass("disabled").css("cursor","default");
     voice.find(".settingsBtn").hide();
     voice.bind("click",function(event){
       event.stopPropagation();
@@ -333,12 +336,12 @@
 
   $.fn.enableExtruderVoice=function(){
     var voice=$(this);
-    voice.attr("disabled",false);
+    voice.attr("setDisabled",false);
     voice.find(".label").css("opacity",1);
     voice.find(".label").removeClass("disabled").css("cursor","pointer");
     voice.unbind("click");
-    voice.find(".settingsBtn").show()
-//            .click();
+    voice.find(".settingsBtn").show();
+    //            .click();
   };
 
   $.fn.hidePanelsOnClose=function(){
