@@ -206,7 +206,7 @@
       }
       if (c) {
         setTimeout(function(){
-          $(document).one("click.extruder"+extruder.get(0).idx,function(){extruder.closeMbExtruder(); console.debug(extruder.get(0).idx)});
+          $(document).one("click.extruder"+extruder.get(0).idx,function(){extruder.closeMbExtruder(); });
         },100);
       }
     },
