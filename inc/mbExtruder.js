@@ -15,7 +15,6 @@
  * dependencies: jquery.metadata.js, jquery.mb.flipV.js, jquery.hoverintent.js
  */
 
-
 (function($) {
   document.extruder=new Object();
   document.extruder.left = 0;
