@@ -116,17 +116,19 @@
         $("#logo").fadeIn();
       }
 
-      $("#extruderTop").buildMbExtruder({
-        positionFixed:false,
-        width:350,
-        extruderOpacity:1,
-        autoCloseTime:4000,
-        hidePanelsOnClose:false,
+      $("#extruderLeft").buildMbExtruder({
+        position:"left",
+        width:300,
+        extruderOpacity:.8,
+        hidePanelsOnClose:true,
+        accordionPanels:true,
         onExtOpen:function(){},
         onExtContentLoad:function(){},
         onExtClose:function(){}
       });
 
+
+/*
       $("#extruderLeft").buildMbExtruder({
         position:"left",
         width:300,
@@ -137,6 +139,7 @@
         onExtContentLoad:function(){$("#extruderLeft").openPanel();},
         onExtClose:function(){}
       });
+*/
 
       $("#extruderLeft1").buildMbExtruder({
         position:"left",
@@ -157,16 +160,11 @@
         onExtContentLoad:function(){},
         onExtClose:function(){}
       });
-
     });
 
   </script>
 </head>
 <body >
-
-
-<div id="extruderTop" class="{title:'extruder top', url:'parts/extruderTop.html'}">
-</div>
 
 <div class="wrapper">
   <h1>mb.extruder.demo</h1>
@@ -186,10 +184,9 @@
     You can open or close any extrude panel invoking: <b>$.fn.closeMbExtruder()</b> or <b>$.fn.openMbExtruder()</b>  methods.
     <br>
     <h3>Try now:</h3>
-    <span class="btn" onclick="$('#extruderTop').openMbExtruder(true);setTimeout(function(){$('#top2').disableExtruderVoice();},400);"><a style="color:red">disable</a> second voice of mbExtruder Top</span>
-    <span class="btn" onclick="setTimeout(function(){$('#top2').enableExtruderVoice();},400);"><a style="color:green">enable</a> second voice of mbExtruder Top</span>
     <span class="btn" onclick="$('#extruderLeft').openMbExtruder(true);$('#extruderLeft').openPanels()">open "Our network"</span>
     <span class="btn" onclick="$('#extruderLeft').closeMbExtruder();">close "Our network"</span>
+    <span class="btn" onclick="$('#extruderLeft').get(0).options.accordionPanels=false;$('#extruderLeft').openPanel();$('#extruderLeft').openMbExtruder();">open "Our network" with all panels opened</span>
     <br>
     <br>
     take a look at the documentation to see how simple is the configuration!
