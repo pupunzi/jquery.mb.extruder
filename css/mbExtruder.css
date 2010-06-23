@@ -25,41 +25,52 @@
 }
 
 .extruder.open .content{
-  -moz-box-shadow:#999 2px -2px 2px;
-  -webkit-box-shadow:#999 2px -2px 2px;
+  -moz-box-shadow:#999 2px 1px 2px;
+  -webkit-box-shadow:#999 2px 1px 2px;
 }
-
 
 
 .extruder .footer{
   display:block;
-  spadding:5px;
   height:10px;
   background:#000;
   -moz-border-radius: 0 0 8px 8px;
   -webkit-border-bottom-right-radius: 5px;
   -webkit-border-bottom-left-radius: 5px;
+  -moz-box-shadow:#666 2px 1px 3px;
+  -webkit-box-shadow:#666 2px 1px 3px;
 }
+
+/*extruder TOP*/
 .extruder.top .flap{
   color:white;
-  text-shadow: #000 2px 2px 2px;
-  font:18px/18px Arial, Helvetica, sans-serif;
+  text-shadow: #333 2px 2px 2px;
+  font:18px/28px Arial, Helvetica, sans-serif;
   text-align:center;
   display:block;
+  margin:auto;
   padding:0 5px 5px 5px;
   height:30px;
-  background:url("../elements/extruder_flap.png") no-repeat top center;
+  width:180px;
+  background:#000;
+  -moz-border-radius:0 0 10px 10px;
+  -webkit-border-bottom-left-radius:10px;
+  -webkit-border-bottom-right-radius:10px;
+  -moz-box-shadow:#666 2px 1px 3px;
+  -webkit-box-shadow:#666 2px 1px 3px;
+
+  /*background:url("../elements/extruder_flap.png") no-repeat top center;*/
   cursor:pointer;
 }
 
+/*extruder LEFT*/
+
 .extruder.left{
-  /*position:absolute;*/
   height:100%;
   background:url("../elements/extruder_blank.png");
 }
 
 .extruder.left .content{
-  display:block;
   border-right:3px solid #000;
 }
 
@@ -76,19 +87,74 @@
   font-size:18px;
   color:white;
   top:0;
-  padding:10px 0px 10px 10px;
+  padding:10px 0 10px 10px;
+  margin-right:-37px;
   background:#000;
   width:30px;
-  /*height:150px;*/
   position:absolute;
-  /*overflow:hidden;*/
-  right:-2px;
+  right:0;
   -moz-border-radius:0 10px 10px 0;
   -webkit-border-top-right-radius:10px;
   -webkit-border-bottom-right-radius:10px;
   -moz-box-shadow:#666 2px 0px 3px;
   -webkit-box-shadow:#666 2px 0px 3px;
 }
+
+.extruder.left .flap .flapLabel{
+  background:#000;
+}
+
+
+
+/*extruder RIGHT*/
+
+.extruder.right{
+  /*position:absolute;*/
+  height:100%;
+  background:url("../elements/extruder_blank.png");
+}
+
+.extruder.right .content{
+  /*display:none;*/
+  border-left:3px solid #000;
+}
+
+
+.extruder.right .ext_wrapper{
+  height:100%;
+  right:0;
+}
+
+.extruder.right .footer{
+  display:none;
+}
+
+.extruder.right .flap{
+  font-size:18px;
+  color:white;
+  top:0;
+  padding:10px 0 10px 10px;
+  background:#000;
+  width:30px;
+  /*height:150px;*/
+  position:absolute;
+  /*overflow:hidden;*/
+  left:-37px;
+  -moz-border-radius:10px 0 0 10px;
+  -webkit-border-top-left-radius:10px;
+  -webkit-border-bottom-left-radius:10px;
+  -moz-box-shadow:#666 -2px 0px 3px;
+  -webkit-box-shadow:#666 -2px 0px 3px;
+}
+
+.extruder.right .flap .flapLabel{
+  background:#000;
+}
+
+
+
+
+
 
 
 /*Extruder Content*/
@@ -103,7 +169,7 @@
     background:url("../elements/extruder_blank.png") no-repeat bottom left;
     text-shadow:#333 2px 2px 2px;
   }
- .extruder .voice.disabled{
+ .extruder .voice .disabled{
    cursor:default;
   }
 .extruder .text{
@@ -112,7 +178,7 @@
     color:gray;
     padding:10px;
     border-bottom:1px solid #333;
-  /*text-shadow:#000 2px 2px 2px;*/
+  text-shadow:#000 2px 2px 2px;
   }
 
   .extruder .voice.hover{
