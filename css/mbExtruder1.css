@@ -29,12 +29,6 @@
   -webkit-box-shadow:#999 2px -2px 2px;
 }
 
-/*
-.extruder.top .content{
-  display:none;
-}
-*/
-
 
 .extruder .footer{
   display:block;
@@ -44,6 +38,8 @@
   -webkit-border-bottom-right-radius: 5px;
   -webkit-border-bottom-left-radius: 5px;
 }
+
+/*extruder TOP*/
 .extruder.top .flap{
   color:white;
   text-shadow: #000 2px 2px 2px;
@@ -56,14 +52,14 @@
   cursor:pointer;
 }
 
+/*extruder LEFT*/
+
 .extruder.left{
-  /*position:absolute;*/
   height:100%;
   background:url("../elements/extruder_blank.png");
 }
 
 .extruder.left .content{
-  /*display:none;*/
   border-right:3px solid #000;
 }
 
@@ -84,9 +80,7 @@
   margin-right:-37px;
   background:#000;
   width:30px;
-  /*height:150px;*/
   position:absolute;
-  /*overflow:hidden;*/
   right:0;
   -moz-border-radius:0 10px 10px 0;
   -webkit-border-top-right-radius:10px;
@@ -94,9 +88,61 @@
   -moz-box-shadow:#666 2px 0px 3px;
   -webkit-box-shadow:#666 2px 0px 3px;
 }
+
 .extruder.left .flap .flapLabel{
   background:#000;
 }
+
+
+
+/*extruder RIGHT*/
+
+.extruder.right{
+  /*position:absolute;*/
+  height:100%;
+  background:url("../elements/extruder_blank.png");
+}
+
+.extruder.right .content{
+  /*display:none;*/
+  border-left:3px solid #000;
+}
+
+
+.extruder.right .ext_wrapper{
+  height:100%;
+  right:0;
+}
+
+.extruder.right .footer{
+  display:none;
+}
+
+.extruder.right .flap{
+  font-size:18px;
+  color:white;
+  top:0;
+  padding:10px 0 10px 10px;
+  background:#000;
+  width:30px;
+  /*height:150px;*/
+  position:absolute;
+  /*overflow:hidden;*/
+  left:-37px;
+  -moz-border-radius:10px 0 0 10px;
+  -webkit-border-top-left-radius:10px;
+  -webkit-border-bottom-left-radius:10px;
+  -moz-box-shadow:#666 -2px 0px 3px;
+  -webkit-box-shadow:#666 -2px 0px 3px;
+}
+
+.extruder.right .flap .flapLabel{
+  background:#000;
+}
+
+
+
+
 
 
 
