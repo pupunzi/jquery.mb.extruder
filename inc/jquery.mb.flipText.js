@@ -22,8 +22,8 @@
     return this.each(function(){
       var me   = $(this);
       var html = me.text();
-     // me.text(html.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g, escape("'")).replace(/"/g,escape('"')));
-      me.text(html.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g, "’").replace(/"/g,"“"));
+      me.text(html.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g, escape("'")).replace(/"/g,escape('"')));
+//      me.text(html.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g, "’").replace(/"/g,"“"));
     });
   };
   $.mbflipText= {
@@ -36,8 +36,6 @@
         var h="";
         var w="";
 
-        if(!isIE && !UTF8encoded) el.encHTML();
-        var txt= el.html();
         var label="";
         var bgcol=(el.css("background-color") && el.css("background-color") != "rgba(0, 0, 0, 0)") ? el.css("background-color"):"#fff";
         var fontsize= parseInt(el.css('font-size'))>0?parseInt(el.css('font-size')):14;
@@ -46,17 +44,22 @@
 
         if ($.browser.msie){
           if(!tb) el.css({'writing-mode': 'tb-rl', height:h, filter: 'fliph() flipv("") ', whiteSpace:"nowrap"}).css('font-weight', 'normal');
-          label=$("<span style='writing-mode: tb-rl; whiteSpace:nowrap; height:"+h+"; width:"+w+"'>"+txt+"</span>");
+          label=$("<span style='writing-mode: tb-rl; whiteSpace:nowrap; height:"+h+"; width:"+w+"'>"+el.html()+"</span>");
         }else{
 
-          h=el.getFlipTextDim(true)[1];
-          w=el.getFlipTextDim(true)[0];
+          var dim=el.getFlipTextDim(false);
+
+          h=dim[1];
+          w=dim[0];
+          if(!isIE ) el.encHTML();
+          var txt= el.text();
 
           var rot="-90";
           var ta="end";
           var xFix=0;
           var yFix=$.browser.opera ? parseInt(w)-(parseInt(w)/4): $.browser.safari?5:0;
           if (tb){
+            yFix=$.browser.opera?20:0;
             xFix= $.browser.safari?(fontsize/4):0;
             rot="90, "+((parseInt(w)/2)-xFix)+", "+parseInt(w)/2;
             ta="start";
@@ -74,20 +77,18 @@
         }
         var wrapper= onClick ? $("<div/>").css("position","relative"): $("");
         var cssPos= el.wrap(wrapper).css("position")!="absolute" || el.css("position")!="fixed"  ?"relative" : el.css("position");
-//        var cssPos= el.css("position")!="absolute" || el.css("position")!="fixed"  ?"relative" : el.css("position");
-
         el.html(label).css({position:cssPos, width:w});
       });
     },
     getFlipTextDim:function(enc){
       var el= $(this);
-      if(!enc && !isIE) el.encHTML();
+//      if(!enc && !isIE) el.encHTML();
       var txt= el.html();
       var fontsize= parseInt(el.css('font-size'));
       var fontfamily=el.css('font-family').replace(/'/g, '').replace(/"/g,'');
       if (fontfamily==undefined) fontfamily="Arial";
       var placeHolder=$("<span/>").css({position:"absolute",top:-100, whiteSpace:"noWrap", fontSize:fontsize, fontFamily: fontfamily});
-      placeHolder.html(txt);
+      placeHolder.text(txt);
       $("body").append(placeHolder);
       var h = (placeHolder.outerWidth()!=0?placeHolder.outerWidth():(16+txt.length*fontsize*.60));
       var w = (placeHolder.outerHeight()!=0?placeHolder.outerHeight()+5:50);

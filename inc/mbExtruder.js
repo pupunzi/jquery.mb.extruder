@@ -98,7 +98,7 @@
           if (extruder.metadata().url) extruder.attr("extUrl",extruder.metadata().url);
           if (extruder.metadata().data) extruder.attr("extData",extruder.metadata().data);
         }
-        var flap=$("<div class='flap'><span class='flapLabel'/></div>")
+        var flap=$("<div class='footer'/><div class='flap'><span class='flapLabel'/></div>");
         wrapper.append(flap);
 
         txt=extruder.attr("extTitle")?extruder.attr("extTitle"): "";
@@ -108,6 +108,7 @@
           var orientation= this.options.textOrientation == "tb";
           var labelH=extruder.find('.flapLabel').getFlipTextDim()[1];
           extruder.find('.flapLabel').mbFlipText(orientation);
+
         }else{
           extruder.find(".flapLabel").html(txt).css({whiteSpace:"noWrap"});
         }
