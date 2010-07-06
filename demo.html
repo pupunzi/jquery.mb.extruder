@@ -118,10 +118,20 @@
 
       $("#extruderTop").buildMbExtruder({
         positionFixed:false,
+        position:"top",
         width:350,
         extruderOpacity:1,
-        autoCloseTime:4000,
+        autoCloseTime:0,
         hidePanelsOnClose:false,
+        onExtOpen:function(){},
+        onExtContentLoad:function(){},
+        onExtClose:function(){}
+      });
+
+      $("#extruderBottom").buildMbExtruder({
+        position:"bottom",
+        width:350,
+        extruderOpacity:1,
         onExtOpen:function(){},
         onExtContentLoad:function(){},
         onExtClose:function(){}
@@ -163,22 +173,16 @@
         width:300,
         extruderOpacity:.8,
         textOrientation:"tb",
-//        top:100,
         onExtOpen:function(){},
         onExtContentLoad:function(){},
         onExtClose:function(){}
       });
-
 
     });
 
   </script>
 </head>
 <body >
-
-
-<div id="extruderTop" class="{title:'extruder top', url:'parts/extruderTop.html'}"></div>
-
 <div class="wrapper">
   <h1>mb.extruder.demo</h1>
 
@@ -220,14 +224,15 @@
       Aenean adipiscing tempor leo id molestie. Nulla pulvinar turpis neque. Sed gravida, tellus et fermentum rhoncus, est arcu consequat nibh, eget luctus ipsum lorem vel sem. Praesent gravida, arcu sed adipiscing imperdiet, ligula velit vulputate mi, quis congue odio neque sed enim. Ut hendrerit tellus eu lorem commodo scelerisque. Fusce lacinia dignissim ullamcorper. In nec sem id metus convallis dictum. Donec fringilla enim vel justo iaculis vehicula. Aliquam in augue sem, eu malesuada urna. Quisque eleifend dignissim quam at hendrerit. Sed vel vehicula felis. Aenean a risus augue. Sed pellentesque fermentum hendrerit.
 
     </div>
-
-    <div id="extruderLeft" class="{title:'Our network ', url:'parts/extruderLeft.html'}"></div>
-    <div id="extruderRight" class="{title:'Our network on the right ', url:'parts/extruderLeft.html'}"></div>
-    <div id="extruderLeft1" class="a {title:'What\'s new in this part of world', url:'parts/extruderLeft1.html'}"></div>
-    <!--<div id="extruderLeft2" class="a {title:'content in place'}">-->
     Phasellus dapibus magna sed nisl interdum ac pellentesque magna sagittis. Maecenas massa leo, condimentum porta consequat in, consequat ac leo. Pellentesque malesuada consequat tortor vel placerat. Suspendisse lorem elit, hendrerit eu blandit at, feugiat id urna. Nunc scelerisque, erat in pharetra cursus, mi eros adipiscing mauris, ac porttitor lacus sem et lectus. Curabitur venenatis adipiscing elementum. Aliquam tristique pulvinar hendrerit. Proin ut tortor dolor. Proin accumsan, libero nec dapibus bibendum, tellus purus molestie est, quis pulvinar est arcu id libero. Morbi vel mauris odio. Integer elementum metus ac eros fringilla congue. Sed est enim, accumsan at malesuada id, bibendum a tortor. Proin id magna eget justo blandit imperdiet sed sit amet neque. Vestibulum luctus, nulla sed vestibulum rutrum, sapien neque laoreet sapien, eget iaculis sem diam quis enim. Aenean sit amet augue neque, sed luctus odio. Curabitur mi nisi, ornare vel adipiscing sed, sodales vitae arcu. Donec enim libero, placerat nec congue eget, adipiscing at lacus. Proin elementum aliquet sagittis. Aenean mauris orci, rhoncus non imperdiet at, imperdiet non arcu. Phasellus laoreet lectus vitae nunc condimentum porta. Aenean adipiscing tempor leo id molestie. Nulla pulvinar turpis neque. Sed gravida, tellus et fermentum rhoncus, est arcu consequat nibh, eget luctus ipsum lorem vel sem. Praesent gravida, arcu sed adipiscing imperdiet, ligula velit vulputate mi, quis congue odio neque sed enim. Ut hendrerit tellus eu lorem commodo scelerisque. Fusce lacinia dignissim ullamcorper. In nec sem id metus convallis dictum. Donec fringilla enim vel justo iaculis vehicula. Aliquam in augue sem, eu malesuada urna. Quisque eleifend dignissim quam at hendrerit. Sed vel vehicula felis. Aenean a risus augue. Sed pellentesque fermentum hendrerit.
   </div>
-
 </div>
+<div id="extruderTop" class="{title:'extruder top', url:'parts/extruderTop.html'}"></div>
+
+<div id="extruderLeft" class="{title:'Our network ', url:'parts/extruderLeft.html'}"></div>
+<div id="extruderLeft1" class="a {title:'What\'s new in this part of world', url:'parts/extruderLeft1.html'}"></div>
+<div id="extruderRight" class="{title:'Our network on the right ', url:'parts/extruderLeft.html'}"></div>
+<div id="extruderBottom" class="{title:'extruder bottom ', url:'parts/extruderLeft.html'}"></div>
+
 </body>
 </html>

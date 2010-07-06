@@ -43,8 +43,8 @@
         var fontcolor=el.css('color')? el.css('color'):"#000";
 
         if ($.browser.msie){
-          if(!tb) el.css({'writing-mode': 'tb-rl', height:h, filter: 'fliph() flipv("") ', whiteSpace:"nowrap"}).css('font-weight', 'normal');
-          label=$("<span style='writing-mode: tb-rl; whiteSpace:nowrap; height:"+h+"; width:"+w+"'>"+el.html()+"</span>");
+          if(!tb) el.css({'writing-mode': 'tb-rl', height:h, filter: 'fliph() flipv("") ', whiteSpace:"nowrap", lineHeight:fontsize+2+"px"}).css('font-weight', 'normal');
+          label=$("<span style='writing-mode: tb-rl; whiteSpace:nowrap; height:"+h+"; width:"+w+"; line-height:"+(fontsize+2)+"px'>"+el.html()+"</span>");
         }else{
 
           var dim=el.getFlipTextDim(false);
