@@ -1,0 +1,218 @@
+<!doctype html>
+
+<!--
+  ~ jquery.mb.components
+  ~ Copyright (c) 2001-2010. Matteo Bicocchi (Pupunzi); Open lab srl, Firenze - Italy
+  ~ email: mbicocchi@open-lab.com
+  ~ site: http://pupunzi.com
+  ~
+  ~ Licences: MIT, GPL
+  ~ http://www.opensource.org/licenses/mit-license.php
+  ~ http://www.gnu.org/licenses/gpl.html
+  -->
+
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>mb.extruder</title>
+  <style type="text/css">
+    body{
+      font-family:Arial, Helvetica, sans-serif;
+      margin:10px;
+    }
+    .wrapper{
+      position:relative;
+      font-family:Arial, Helvetica, sans-serif;
+      padding-top:90px;
+      padding-left:50px;
+      width:80%;
+      margin:auto
+    }
+    .wrapper .text{
+      font-family:Arial, Helvetica, sans-serif;
+      padding-top:50px;
+    }
+    .wrapper h1{
+      font-family:Arial, Helvetica, sans-serif;
+      font-size:26px;
+    }
+    .longText{
+      margin-top:20px;
+      width:600px;
+      font:18px/24px Arial, Helvetica, sans-serif;
+      color:gray;
+    }
+    span.btn{
+      padding:10px;
+      display:inline-block;
+      cursor:pointer;
+      font:12px/14px Arial, Helvetica, sans-serif;
+      color:#aaa;
+      background-color:#eee;
+      -moz-border-radius:10px;
+      -webkit-border-radius:10px;
+      -moz-box-shadow:#999 2px 0px 3px;
+      -webkit-box-shadow:#999 2px 0px 3px;
+    }
+    span.btn:hover{
+      background-color:#000;
+    }
+
+      /*
+      custom style for extruder
+      */
+
+    .extruder.left.a .flap{
+      font-size:18px;
+      color:white;
+      top:0;
+      padding:10px 0 10px 10px;
+      background:#772B14;
+      width:30px;
+      position:absolute;
+      right:0;
+      -moz-border-radius:0 10px 10px 0;
+      -webkit-border-top-right-radius:10px;
+      -webkit-border-bottom-right-radius:10px;
+      -moz-box-shadow:#666 2px 0px 3px;
+      -webkit-box-shadow:#666 2px 0px 3px;
+    }
+
+    .extruder.left.a .content{
+      border-right:3px solid #772B14;
+    }
+
+    .extruder.top .optionsPanel .panelVoice a:hover{
+      color:#fff;
+      background: url("elements/black_op_30.png");
+      border-bottom:1px solid #000;
+    }
+    .extruder.top .optionsPanel .panelVoice a{
+      border-bottom:1px solid #000;
+    }
+
+    .extruder.left.a .flap .flapLabel{
+      background:#772B14;
+    }
+  </style>
+
+  <link href="css/mbExtruder.css" media="all" rel="stylesheet" type="text/css">
+
+  <script type="text/javascript" src="http://jquery.com/src/jquery-latest.js"></script>
+  <script type="text/javascript" src="inc/jquery.hoverIntent.min.js"></script>
+  <script type="text/javascript" src="inc/jquery.metadata.js"></script>
+  <script type="text/javascript" src="inc/jquery.mb.flipText.js"></script>
+  <script type="text/javascript" src="inc/mbExtruder.js"></script>
+  <script type="text/javascript">
+
+
+
+    $(function(){
+
+      if (self.location.href == top.location.href){
+        $("body").css({font:"normal 13px/16px 'trebuchet MS', verdana, sans-serif"});
+        var logo=$("<a href='http://pupunzi.com'><img id='logo' border='0' src='http://pupunzi.com/images/logo.png' alt='mb.ideas.repository' style='display:none;'></a>").css({position:"absolute"});
+        $("body").prepend(logo);
+        $("#logo").fadeIn();
+      }
+
+      $("#extruderLeft").buildMbExtruder({
+        position:"left",
+        width:300,
+        extruderOpacity:.8,
+        hidePanelsOnClose:true,
+        accordionPanels:true,
+        onExtOpen:function(){},
+        onExtContentLoad:function(){},
+        onExtClose:function(){}
+      });
+
+
+/*
+      $("#extruderLeft").buildMbExtruder({
+        position:"left",
+        width:300,
+        extruderOpacity:.8,
+        hidePanelsOnClose:false,
+        accordionPanels:false,
+        onExtOpen:function(){},
+        onExtContentLoad:function(){$("#extruderLeft").openPanel();},
+        onExtClose:function(){}
+      });
+*/
+
+      $("#extruderLeft1").buildMbExtruder({
+        position:"left",
+        width:300,
+        extruderOpacity:.8,
+        onExtOpen:function(){},
+        onExtContentLoad:function(){},
+        onExtClose:function(){}
+      });
+
+      $("#extruderLeft2").buildMbExtruder({
+        position:"left",
+        width:300,
+        positionFixed:false,
+        top:0,
+        extruderOpacity:.8,
+        onExtOpen:function(){},
+        onExtContentLoad:function(){},
+        onExtClose:function(){}
+      });
+    });
+
+  </script>
+</head>
+<body >
+
+<div class="wrapper">
+  <h1>mb.extruder.demo</h1>
+
+  <div class="text">
+    <h2> Here is the mb.extruder!</h2>
+    You can have a direct link, a link with a panel, just a panel or a disabled voice.
+    <br>
+    It can be set on top or on left of your page; and if you have mor than one extruder (only on left) they are automatically positioned one behind the other.
+    <br>
+    <br>
+    The TOP extruder <b>positionFixed</b> param is set to <b>false</b>, so it scrolls with the page; the LEFT extruders <b>positionFixed</b> param is set to <b>true</b> (the default value), so they kip their position even when page scrolls.
+    <br>
+    <br>
+    You can disable or anable dinamically each voice of your extruder using the <b>$.fn.disableExtruderVoice()</b> or <b>$.fn.enableExtruderVoice()</b> methods.
+    <br>
+    You can open or close any extrude panel invoking: <b>$.fn.closeMbExtruder()</b> or <b>$.fn.openMbExtruder()</b>  methods.
+    <br>
+    <h3>Try now:</h3>
+    <span class="btn" onclick="$('#extruderLeft').openMbExtruder(true);$('#extruderLeft').openPanels()">open "Our network"</span>
+    <span class="btn" onclick="$('#extruderLeft').closeMbExtruder();">close "Our network"</span>
+    <span class="btn" onclick="$('#extruderLeft').get(0).options.accordionPanels=false;$('#extruderLeft').openPanel();$('#extruderLeft').openMbExtruder();">open "Our network" with all panels opened</span>
+    <br>
+    <br>
+    take a look at the documentation to see how simple is the configuration!
+
+  </div>
+  <div class="longText" style="position:relative;padding-left:50px">
+    <div id="extruderLeft2" class="{title:'novità: content in place'}" >
+
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin purus orci, volutpat ut pulvinar volutpat, convallis in orci. Quisque eget arcu convallis dui lacinia vestibulum non ut odio. Cras fringilla mollis mattis. Cras dictum rutrum ultricies. Donec auctor, risus eu tincidunt auctor, diam ligula facilisis libero, sit amet interdum felis enim ut est. Maecenas nec nulla quis ante convallis volutpat convallis at justo. Pellentesque quam orci, consectetur sit amet interdum a, tempus eget erat. Nam in ante odio. Vivamus nec augue vitae mi molestie pretium sed id elit. Aenean ultrices auctor ipsum eu vestibulum. Phasellus non dolor vel nisi congue egestas in a eros. Phasellus nunc nulla, interdum ut viverra eu, tristique sed sapien.
+
+      Proin vel pulvinar diam. Integer commodo dapibus massa, a faucibus purus imperdiet in. Morbi a purus est. Aliquam lacinia vehicula consequat. Pellentesque gravida dui vitae magna hendrerit varius. Pellentesque ullamcorper purus nec nisi eleifend a pharetra nulla sollicitudin. Maecenas sed gravida sem. Sed molestie luctus interdum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam viverra, ipsum quis adipiscing dignissim, sapien velit vehicula dolor, vitae dictum leo sem vel ante. Donec sodales augue sit amet velit ullamcorper nec rhoncus ipsum semper. Sed nec sodales sapien. Sed ornare auctor lacus ornare condimentum. Curabitur varius consequat condimentum. Mauris sed libero libero, id mollis nibh.
+
+      Sed vel metus eu eros semper pellentesque porttitor a purus. Cras ornare lobortis risus id posuere. In velit felis, tempor ac fermentum nec, sodales at felis. Nunc id felis quis tortor semper volutpat a eget eros. Nullam non risus vel quam tincidunt adipiscing. Fusce interdum, dolor at placerat accumsan, magna neque faucibus felis, vel elementum nunc enim at purus. Suspendisse in dolor nec erat vulputate sollicitudin vitae id augue. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin sit amet augue at metus gravida ultrices. Donec risus dui, ultricies consequat feugiat id, sagittis et elit. Curabitur a nisi odio. In hac habitasse platea dictumst. Nullam pulvinar augue ac lacus dictum vestibulum. Aliquam a magna elit, id dictum nibh. Integer sapien sapien, sodales ac vehicula dignissim, hendrerit ac felis. Nunc feugiat nulla et turpis posuere vel malesuada eros hendrerit. Aliquam eget elit sem. Pellentesque sit amet arcu orci. Sed non urna eu arcu placerat malesuada.
+
+      Phasellus dapibus magna sed nisl interdum ac pellentesque magna sagittis. Maecenas massa leo, condimentum porta consequat in, consequat ac leo. Pellentesque malesuada consequat tortor vel placerat. Suspendisse lorem elit, hendrerit eu blandit at, feugiat id urna. Nunc scelerisque, erat in pharetra cursus, mi eros adipiscing mauris, ac porttitor lacus sem et lectus. Curabitur venenatis adipiscing elementum. Aliquam tristique pulvinar hendrerit. Proin ut tortor dolor. Proin accumsan, libero nec dapibus bibendum, tellus purus molestie est, quis pulvinar est arcu id libero. Morbi vel mauris odio. Integer elementum metus ac eros fringilla congue. Sed est enim, accumsan at malesuada id, bibendum a tortor. Proin id magna eget justo blandit imperdiet sed sit amet neque. Vestibulum luctus, nulla sed vestibulum rutrum, sapien neque laoreet sapien, eget iaculis sem diam quis enim. Aenean sit amet augue neque, sed luctus odio. Curabitur mi nisi, ornare vel adipiscing sed, sodales vitae arcu. Donec enim libero, placerat nec congue eget, adipiscing at lacus. Proin elementum aliquet sagittis. Aenean mauris orci, rhoncus non imperdiet at, imperdiet non arcu. Phasellus laoreet lectus vitae nunc condimentum porta.
+
+      Aenean adipiscing tempor leo id molestie. Nulla pulvinar turpis neque. Sed gravida, tellus et fermentum rhoncus, est arcu consequat nibh, eget luctus ipsum lorem vel sem. Praesent gravida, arcu sed adipiscing imperdiet, ligula velit vulputate mi, quis congue odio neque sed enim. Ut hendrerit tellus eu lorem commodo scelerisque. Fusce lacinia dignissim ullamcorper. In nec sem id metus convallis dictum. Donec fringilla enim vel justo iaculis vehicula. Aliquam in augue sem, eu malesuada urna. Quisque eleifend dignissim quam at hendrerit. Sed vel vehicula felis. Aenean a risus augue. Sed pellentesque fermentum hendrerit.
+
+    </div>
+
+    <div id="extruderLeft" class="{title:'Our network ', url:'parts/extruderLeft.html'}"></div>
+    <div id="extruderLeft1" class="a {title:'What\'s new in this part of world', url:'parts/extruderLeft1.html'}"></div>
+    <!--<div id="extruderLeft2" class="a {title:'content in place'}">-->
+    Phasellus dapibus magna sed nisl interdum ac pellentesque magna sagittis. Maecenas massa leo, condimentum porta consequat in, consequat ac leo. Pellentesque malesuada consequat tortor vel placerat. Suspendisse lorem elit, hendrerit eu blandit at, feugiat id urna. Nunc scelerisque, erat in pharetra cursus, mi eros adipiscing mauris, ac porttitor lacus sem et lectus. Curabitur venenatis adipiscing elementum. Aliquam tristique pulvinar hendrerit. Proin ut tortor dolor. Proin accumsan, libero nec dapibus bibendum, tellus purus molestie est, quis pulvinar est arcu id libero. Morbi vel mauris odio. Integer elementum metus ac eros fringilla congue. Sed est enim, accumsan at malesuada id, bibendum a tortor. Proin id magna eget justo blandit imperdiet sed sit amet neque. Vestibulum luctus, nulla sed vestibulum rutrum, sapien neque laoreet sapien, eget iaculis sem diam quis enim. Aenean sit amet augue neque, sed luctus odio. Curabitur mi nisi, ornare vel adipiscing sed, sodales vitae arcu. Donec enim libero, placerat nec congue eget, adipiscing at lacus. Proin elementum aliquet sagittis. Aenean mauris orci, rhoncus non imperdiet at, imperdiet non arcu. Phasellus laoreet lectus vitae nunc condimentum porta. Aenean adipiscing tempor leo id molestie. Nulla pulvinar turpis neque. Sed gravida, tellus et fermentum rhoncus, est arcu consequat nibh, eget luctus ipsum lorem vel sem. Praesent gravida, arcu sed adipiscing imperdiet, ligula velit vulputate mi, quis congue odio neque sed enim. Ut hendrerit tellus eu lorem commodo scelerisque. Fusce lacinia dignissim ullamcorper. In nec sem id metus convallis dictum. Donec fringilla enim vel justo iaculis vehicula. Aliquam in augue sem, eu malesuada urna. Quisque eleifend dignissim quam at hendrerit. Sed vel vehicula felis. Aenean a risus augue. Sed pellentesque fermentum hendrerit.
+  </div>
+
+</div>
+</body>
+</html>

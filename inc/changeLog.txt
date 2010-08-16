@@ -2,7 +2,11 @@ jquery.mb.extruder
 
 >> to ADD >>
 
-    1. bottom and right positioning.
+    1. bottom positioning.
+
+1.8.9
+    1. bugfix IE.
+    2. added extruder right
 
 1.8.5
     1. Add close extruder on flap click.

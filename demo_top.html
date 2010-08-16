@@ -1,0 +1,131 @@
+<!doctype html>
+
+<!--
+  ~ jquery.mb.components
+  ~ Copyright (c) 2001-2010. Matteo Bicocchi (Pupunzi); Open lab srl, Firenze - Italy
+  ~ email: mbicocchi@open-lab.com
+  ~ site: http://pupunzi.com
+  ~
+  ~ Licences: MIT, GPL
+  ~ http://www.opensource.org/licenses/mit-license.php
+  ~ http://www.gnu.org/licenses/gpl.html
+  -->
+
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>mb.extruder</title>
+  <style type="text/css">
+    body{
+      font-family:Arial, Helvetica, sans-serif;
+      margin:10px;
+    }
+    .wrapper{
+      position:relative;
+      font-family:Arial, Helvetica, sans-serif;
+      padding-top:90px;
+      padding-left:50px;
+      width:80%;
+      margin:auto
+    }
+    .wrapper .text{
+      font-family:Arial, Helvetica, sans-serif;
+      padding-top:50px;
+    }
+    .wrapper h1{
+      font-family:Arial, Helvetica, sans-serif;
+      font-size:26px;
+    }
+    .longText{
+      margin-top:20px;
+      width:600px;
+      font:18px/24px Arial, Helvetica, sans-serif;
+      color:gray;
+    }
+    span.btn{
+      padding:10px;
+      display:inline-block;
+      cursor:pointer;
+      font:12px/14px Arial, Helvetica, sans-serif;
+      color:#aaa;
+      background-color:#eee;
+      -moz-border-radius:10px;
+      -webkit-border-radius:10px;
+      -moz-box-shadow:#999 2px 0px 3px;
+      -webkit-box-shadow:#999 2px 0px 3px;
+    }
+    span.btn:hover{
+      background-color:#000;
+    }
+
+  </style>
+
+  <link href="css/mbExtruder.css" media="all" rel="stylesheet" type="text/css">
+
+  <script type="text/javascript" src="http://jquery.com/src/jquery-latest.js"></script>
+  <script type="text/javascript" src="inc/jquery.hoverIntent.min.js"></script>
+  <script type="text/javascript" src="inc/jquery.metadata.js"></script>
+  <script type="text/javascript" src="inc/jquery.mb.flipText.js"></script>
+  <script type="text/javascript" src="inc/mbExtruder.js"></script>
+  <script type="text/javascript">
+
+
+
+    $(function(){
+
+      if (self.location.href == top.location.href){
+        $("body").css({font:"normal 13px/16px 'trebuchet MS', verdana, sans-serif"});
+        var logo=$("<a href='http://pupunzi.com'><img id='logo' border='0' src='http://pupunzi.com/images/logo.png' alt='mb.ideas.repository' style='display:none;'></a>").css({position:"absolute"});
+        $("body").prepend(logo);
+        $("#logo").fadeIn();
+      }
+
+      $("#extruderTop").buildMbExtruder({
+        positionFixed:false,
+        width:350,
+        extruderOpacity:1,
+        autoCloseTime:4000,
+       // hidePanelsOnClose:false,
+        onExtOpen:function(){},
+        onExtContentLoad:function(){},
+        onExtClose:function(){}
+      });
+    });
+
+  </script>
+</head>
+<body >
+
+
+<div id="extruderTop" class="{title:'extruder top', url:'parts/extruderTop.html'}">
+</div>
+
+<div class="wrapper">
+  <h1>mb.extruder.demo</h1>
+
+  <div class="text">
+    <h2> Here is the mb.extruder!</h2>
+    You can have a direct link, a link with a panel, just a panel or a disabled voice.
+    <br>
+    It can be set on top or on left of your page; and if you have mor than one extruder (only on left) they are automatically positioned one behind the other.
+    <br>
+    <br>
+    The TOP extruder <b>positionFixed</b> param is set to <b>false</b>, so it scrolls with the page; the LEFT extruders <b>positionFixed</b> param is set to <b>true</b> (the default value), so they kip their position even when page scrolls.
+    <br>
+    <br>
+    You can disable or anable dinamically each voice of your extruder using the <b>$.fn.disableExtruderVoice()</b> or <b>$.fn.enableExtruderVoice()</b> methods.
+    <br>
+    You can open or close any extrude panel invoking: <b>$.fn.closeMbExtruder()</b> or <b>$.fn.openMbExtruder()</b>  methods.
+    <br>
+    <h3>Try now:</h3>
+    <span class="btn" onclick="$('#extruderTop').openMbExtruder(true);setTimeout(function(){$('#top2').disableExtruderVoice();},400);"><a style="color:red">disable</a> second voice of mbExtruder Top</span>
+    <span class="btn" onclick="setTimeout(function(){$('#top2').enableExtruderVoice();},400);"><a style="color:green">enable</a> second voice of mbExtruder Top</span>
+    <br>
+    <br>
+    take a look at the documentation to see how simple is the configuration!
+
+  </div>
+</div>
+
+</body>
+</html>
