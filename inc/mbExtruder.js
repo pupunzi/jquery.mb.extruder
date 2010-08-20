@@ -1,7 +1,7 @@
 /*******************************************************************************
  jquery.mb.components
  Copyright (c) 2001-2010. Matteo Bicocchi (Pupunzi); Open lab srl, Firenze - Italy
- email: info@pupunzi.com
+ email: mbicocchi@open-lab.com
  site: http://pupunzi.com
 
  Licences: MIT, GPL
@@ -11,25 +11,29 @@
 
 /*
  * Name:jquery.mb.extruder
- * Version: 1.8.5
- * dependencies: jquery.metadata.js, jquery.mb.flipV.js, jquery.hoverintent.js
+ * Version: 1.9.0rc1
+ * dependencies: jquery.metadata.js, jquery.mb.flipText.js, jquery.hoverintent.js
  */
+
 
 (function($) {
   document.extruder=new Object();
   document.extruder.left = 0;
   document.extruder.top = 0;
+  document.extruder.bottom = 0;
+  document.extruder.right = 0;
   document.extruder.idx=0;
   var isIE=$.browser.msie;
 
   $.mbExtruder= {
     author:"Matteo Bicocchi",
-    version:"1.8.5",
+    version:"1.9.0rc1",
     defaults:{
       width:350,
       positionFixed:true,
       sensibility:800,
       position:"top",
+      accordionPanels:true,
       top:"auto",
       extruderOpacity:1,
       flapMargin:35,
@@ -55,7 +59,9 @@
 
         extruder.css("zIndex",100);
 
-        var extW= this.options.position=="left"?1: this.options.width;
+        var isVertical = this.options.position=="left" || this.options.position=="right";
+
+        var extW= isVertical?1: this.options.width;
 
         var c= $("<div/>").addClass("content").css({overflow:"hidden", width:extW});
         c.append(extruderContent);
@@ -64,27 +70,31 @@
         var position=this.options.positionFixed?"fixed":"absolute";
         extruder.addClass("extruder");
         extruder.addClass(this.options.position);
-        extruderStyle=this.options.position=="top"?
-        {position:position,top:0,left:"50%",marginLeft:-this.options.width/2,width:this.options.width}:
-        {position:position,top:0,left:0,width:1};
-        //                      {position:position,top:0,left:-(this.options.width)};
+        var isHorizontal = this.options.position=="top" || this.options.position=="bottom";
+        extruderStyle=
+                this.options.position=="top"?
+                {position:position,top:0,left:"50%",marginLeft:-this.options.width/2,width:this.options.width}:
+                        this.options.position=="bottom"?
+                        {position:position,bottom:0,left:"50%",marginLeft:-this.options.width/2,width:this.options.width}:
+                                this.options.position=="left"?
+                                {position:position,top:0,left:0,width:1}:
+                                {position:position,top:0,right:0,width:1};
         extruder.css(extruderStyle);
         if(!isIE) extruder.css({opacity:this.options.extruderOpacity});
         extruder.wrapInner("<div class='ext_wrapper'></div>");
         wrapper= extruder.find(".ext_wrapper");
 
-        wrapperStyle={position:"absolute", width:this.options.position=="left"?1:this.options.width};
+        wrapperStyle={position:"absolute", width:isVertical?1:this.options.width};
         wrapper.css(wrapperStyle);
 
 
-        if (this.options.position=="top"){
-          document.extruder.top++;
-          if (document.extruder.top>1){
-            alert("more than 1 mb.extruder on top is not supported jet... hope soon!");
+        if (isHorizontal){
+          this.options.position=="top"?document.extruder.top++:document.extruder.bottom++;
+          if (document.extruder.top>1 || document.extruder.bottom>1){
+            alert("more than 1 mb.extruder on top or bottom is not supported jet... hope soon!");
             return;
           }
         }
-
 
         if ($.metadata){
           $.metadata.setType("class");
@@ -92,11 +102,19 @@
           if (extruder.metadata().url) extruder.attr("extUrl",extruder.metadata().url);
           if (extruder.metadata().data) extruder.attr("extData",extruder.metadata().data);
         }
-        wrapper.append("<div class='footer'></div><div class='flap'><span class='flapLabel'/></div>");
+        var flapFooter=$("<div class='footer'/>");
+        var flap=$("<div class='flap'><span class='flapLabel'/></div>");
+        if (document.extruder.bottom){
+          wrapper.prepend(flapFooter);
+          wrapper.prepend(flap);
+        }else{
+          wrapper.append(flapFooter);
+          wrapper.append(flap);
+        }
 
         txt=extruder.attr("extTitle")?extruder.attr("extTitle"): "";
         extruder.find(".flapLabel").text(txt);
-        if(this.options.position=="left"){
+        if(isVertical){
           extruder.find(".flapLabel").html(txt).css({whiteSpace:"noWrap"});//,height:this.options.flapDim
           var orientation= this.options.textOrientation == "tb";
           var labelH=extruder.find('.flapLabel').getFlipTextDim()[1];
@@ -117,7 +135,7 @@
           extruder.setExtruderVoicesAction();
         }
 
-        extruder.find('.flap').bind("click",function(){
+        flap.bind("click",function(){
           if (!extruder.attr("open")){
             extruder.openMbExtruder();
           }else{
@@ -135,17 +153,16 @@
           },extruder.get(0).options.autoCloseTime);
         }).bind("mouseenter", function(){clearTimeout(timer); $(document).unbind("click.extruder"+extruder.get(0).idx);});
 
-        if (this.options.position=="left"){
+        if (isVertical){
           c.css({ height:"100%"});
-
           if(this.options.top=="auto") {
-            extruder.find('.flap').css({top:100+document.extruder.left});
-            document.extruder.left+= labelH+this.options.flapMargin;
+            flap.css({top:100+(this.options.position=="left"?document.extruder.left:document.extruder.right)});
+            this.options.position=="left"?document.extruder.left+=labelH+this.options.flapMargin:document.extruder.right+= labelH+this.options.flapMargin;
           }else{
-            extruder.find('.flap').css({top:this.options.top});
+            flap.css({top:this.options.top});
           }
           var clicDiv=$("<div/>").css({position:"absolute",top:0,left:0,width:"100%",height:"100%",background:"transparent"});
-          extruder.find('.flap').append(clicDiv);
+          flap.append(clicDiv);
         }
       });
     },
@@ -166,7 +183,7 @@
       var where=$(this), voice;
       var cb= this.options.callback;
       var container=$("<div>").addClass("container");
-      if ($.browser.msie && $.browser.version>7)
+      if (!($.browser.msie && $.browser.version<=7))
         container.css({width:$(this).get(0).options.width});
       where.find(".content").wrapInner(container);
       $.ajax({
@@ -194,7 +211,7 @@
       if(!isIE) extruder.css("opacity",1);
       var position= opt.position;
       extruder.mb_bringToFront();
-      if (position=="top"){
+      if (position=="top" || position=="bottom"){
         extruder.find('.content').slideDown( opt.slideTimer);
         if(opt.onExtOpen) opt.onExtOpen();
       }else{
@@ -206,10 +223,11 @@
       }
       if (c) {
         setTimeout(function(){
-          $(document).one("click.extruder"+extruder.get(0).idx,function(){extruder.closeMbExtruder(); });
+          $(document).one("click.extruder"+extruder.get(0).idx,function(){extruder.closeMbExtruder();});
         },100);
       }
     },
+
     closeMbExtruder:function(){
       var extruder= $(this);
       extruder.removeAttr("open");
@@ -218,10 +236,10 @@
       $(document).unbind("click.extruder"+extruder.get(0).idx);
       if(!isIE) extruder.css("opacity",opt.extruderOpacity);
       if(opt.hidePanelsOnClose) extruder.hidePanelsOnClose();
-      if (opt.position=="top"){
+      if (opt.position=="top" || opt.position=="bottom"){
         extruder.find('.content').slideUp(opt.slideTimer);
         if(opt.onExtClose) opt.onExtClose();
-      }else if (opt.position=="left"){
+      }else if (opt.position=="left" || opt.position=="right"){
         extruder.find('.content').css({overflow:"hidden", display:"none"});        //, display:"none"
         extruder.find('.content').animate({ width: 1 }, opt.slideTimer,function(){
           extruder.find('.ext_wrapper').css({width:1});
@@ -250,6 +268,7 @@
 
   $.fn.setExtruderVoicesAction=function(){
     var extruder=$(this);
+    var opt=extruder.get(0).options;
     var voices= $(this).find(".voice");
     voices.each(function(){
       var voice=$(this);
@@ -274,12 +293,19 @@
                   $(this).not(".sel").css({opacity:.5});
                 }).click(function(){
           if ($(this).parents().hasClass("sel")){
-            extruder.hidePanelsOnClose();
+            if(opt.accordionPanels)
+              extruder.hidePanelsOnClose();
+            else
+              $(this).closePanel();
+
             return;
           }
-          extruder.find(".optionsPanel").slideUp(400,function(){$(this).remove();});
-          voices.removeClass("sel");
-          voices.find(".settingsBtn").removeClass("sel").css({opacity:.5});
+
+          if(opt.accordionPanels){
+            extruder.find(".optionsPanel").slideUp(400,function(){$(this).remove();});
+            voices.removeClass("sel");
+            voices.find(".settingsBtn").removeClass("sel").css({opacity:.5});
+          }
           var content=$("<div class='optionsPanel'></div>");
           $.ajax({
             type: "POST",
@@ -340,7 +366,6 @@
     voice.find(".label").removeClass("disabled").css("cursor","pointer");
     voice.unbind("click");
     voice.find(".settingsBtn").show();
-    //            .click();
   };
 
   $.fn.hidePanelsOnClose=function(){
@@ -348,6 +373,21 @@
     $(this).find(".optionsPanel").slideUp(400,function(){$(this).remove();});
     voices.removeClass("sel");
     voices.find(".settingsBtn").removeClass("sel").css("opacity",.5);
+  };
+
+  $.fn.openPanel=function(){
+    var voice=$(this).hasClass("voice") ? $(this) : $(this).find(".voice");
+    voice.each(function(){
+      if($(this).hasClass("sel")) return;
+      $(this).find(".settingsBtn").click();
+    })
+  };
+
+  $.fn.closePanel=function(){
+    var voice=$(this).hasClass("voice") ? $(this) : $(this).parent(".voice");
+    voice.next(".optionsPanel").slideUp(400,function(){$(this).remove();});
+    voice.removeClass("sel");
+    $(this).removeClass("sel").css("opacity",.5);
   };
 
   $.fn.buildMbExtruder=$.mbExtruder.buildMbExtruder;
