@@ -1,8 +1,9 @@
 jquery.mb.extruder
 
->> to ADD >>
 
-    1. bottom positioning.
+1.9.0
+    1. extruder on top, left, right, bottom.
+    2. added a new property: accordionPanels to choose if panels shold close once opening a new one or not.
 
 1.8.9
     1. bugfix IE.
