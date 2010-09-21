@@ -1,7 +1,7 @@
 jquery.mb.extruder
 
 
-1.9.0
+2.0
     1. extruder on top, left, right, bottom.
     2. added a new property: accordionPanels to choose if panels shold close once opening a new one or not.
 
