@@ -301,7 +301,6 @@
               extruder.hidePanelsOnClose();
             else
               $(this).closePanel();
-
             return;
           }
 
@@ -311,6 +310,7 @@
             voices.find(".settingsBtn").removeClass("sel").css({opacity:.5});
           }
           var content=$("<div class='optionsPanel'></div>");
+          voice.after(content);
           $.ajax({
             type: "POST",
             url: voice.attr("panel"),
@@ -326,7 +326,6 @@
               content.slideDown(400);
             }
           });
-          voice.after(content);
           voice.addClass("sel");
           voice.find(".settingsBtn").addClass("sel").css({opacity:1});
         });
