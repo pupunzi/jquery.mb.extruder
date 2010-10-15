@@ -1,6 +1,9 @@
 jquery.mb.extruder
 
 
+2.1
+    1. Solved an issue with jquery 1.4.3. (.content display none was not resetted once opened with animate and jquery 1.4.3)
+
 2.0
     1. extruder on top, left, right, bottom.
     2. added a new property: accordionPanels to choose if panels shold close once opening a new one or not.

@@ -11,7 +11,7 @@
 
 /*
  * Name:jquery.mb.extruder
- * Version: 2.0
+ * Version: 2.1
  * dependencies: jquery.metadata.js, jquery.mb.flipText.js, jquery.hoverintent.js
  */
 
@@ -27,7 +27,7 @@
 
   $.mbExtruder= {
     author:"Matteo Bicocchi",
-    version:"2.0",
+    version:"2.1",
     defaults:{
       width:350,
       positionFixed:true,
@@ -55,7 +55,7 @@
         document.extruder.idx++;
         var extruder,extruderContent,wrapper,extruderStyle,wrapperStyle,txt,timer;
         extruder= $(this);
-        extruderContent=$(this).html();
+        extruderContent=extruder.html();
 
         extruder.css("zIndex",100);
 
@@ -113,22 +113,25 @@
         }
 
         txt=extruder.attr("extTitle")?extruder.attr("extTitle"): "";
-        extruder.find(".flapLabel").text(txt);
+        var flapLabel = extruder.find(".flapLabel");
+        flapLabel.text(txt);
         if(isVertical){
-          extruder.find(".flapLabel").html(txt).css({whiteSpace:"noWrap"});//,height:this.options.flapDim
+          flapLabel.html(txt).css({whiteSpace:"noWrap"});//,height:this.options.flapDim
           var orientation= this.options.textOrientation == "tb";
           var labelH=extruder.find('.flapLabel').getFlipTextDim()[1];
           extruder.find('.flapLabel').mbFlipText(orientation);
         }else{
-          extruder.find(".flapLabel").html(txt).css({whiteSpace:"noWrap"});
+          flapLabel.html(txt).css({whiteSpace:"noWrap"});
         }
 
         if (extruder.attr("extUrl")){
-          extruder.setMbExtruderContent({
-            url:extruder.attr("extUrl"),
-            data:extruder.attr("extData"),
-            callback: function(){if (extruder.get(0).options.onExtContentLoad) extruder.get(0).options.onExtContentLoad();}
-          });
+            extruder.setMbExtruderContent({
+              url:extruder.attr("extUrl"),
+              data:extruder.attr("extData"),
+              callback: function(){
+                if (extruder.get(0).options.onExtContentLoad) extruder.get(0).options.onExtContentLoad();
+              }
+          })
         }else{
           var container=$("<div>").addClass("text").css({width:extruder.get(0).options.width-20, height:extruder.height()-20, overflowY:"auto"});
           c.wrapInner(container);
@@ -215,9 +218,10 @@
         extruder.find('.content').slideDown( opt.slideTimer);
         if(opt.onExtOpen) opt.onExtOpen();
       }else{
+
         if(!isIE) $(this).css("opacity",1);
         extruder.find('.ext_wrapper').css({width:""});
-        extruder.find('.content').css({overflowX:"hidden"});
+        extruder.find('.content').css({overflowX:"hidden", display:"block"});
         extruder.find('.content').animate({ width: opt.width}, opt.slideTimer);
         if(opt.onExtOpen) opt.onExtOpen();
       }
@@ -240,10 +244,10 @@
         extruder.find('.content').slideUp(opt.slideTimer);
         if(opt.onExtClose) opt.onExtClose();
       }else if (opt.position=="left" || opt.position=="right"){
-        extruder.find('.content').css({overflow:"hidden", display:"none"});        //, display:"none"
+        extruder.find('.content').css({overflow:"hidden"});
         extruder.find('.content').animate({ width: 1 }, opt.slideTimer,function(){
           extruder.find('.ext_wrapper').css({width:1});
-          extruder.find('.content').css({overflow:"hidden",display:"none"}); //,display:"none"
+          extruder.find('.content').css({overflow:"hidden",display:"none"});
           if(opt.onExtClose) opt.onExtClose();
         });
       }
