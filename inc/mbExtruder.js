@@ -44,6 +44,7 @@
       hidePanelsOnClose:true,
       closeOnExternalClick:true,
       autoCloseTime:0,
+      autoOpenTime:0,
       slideTimer:300
     },
 
@@ -54,7 +55,7 @@
         $.extend (this.options, options);
         this.idx=document.extruder.idx;
         document.extruder.idx++;
-        var extruder,extruderContent,wrapper,extruderStyle,wrapperStyle,txt,timer;
+        var extruder,extruderContent,wrapper,extruderStyle,wrapperStyle,txt,closeTimer,openTimer;
         extruder= $(this);
         extruderContent=extruder.html();
 
@@ -145,18 +146,30 @@
           }else{
             extruder.closeMbExtruder();
           }
+        }).bind("mouseenter",function(){
+          if(extruder.get(0).options.autoOpenTime>0){
+              openTimer=setTimeout(function(){
+                extruder.openMbExtruder();
+                $(document).one("click.extruder"+extruder.get(0).idx,function(){extruder.closeMbExtruder();});
+              },extruder.get(0).options.autoOpenTime);
+          }
+        }).bind("mouseleave",function(){
+          clearTimeout(openTimer);
         });
 
         c.bind("mouseleave", function(){
           if(extruder.get(0).options.closeOnExternalClick)
             $(document).one("click.extruder"+extruder.get(0).idx,function(){extruder.closeMbExtruder();});
-          timer=setTimeout(function(){
+          closeTimer=setTimeout(function(){
 
             if(extruder.get(0).options.autoCloseTime > 0){
               extruder.closeMbExtruder();
             }
           },extruder.get(0).options.autoCloseTime);
-        }).bind("mouseenter", function(){clearTimeout(timer); $(document).unbind("click.extruder"+extruder.get(0).idx);});
+        }).bind("mouseenter", function(){
+          clearTimeout(closeTimer);
+          $(document).unbind("click.extruder"+extruder.get(0).idx);
+        });
 
         if (isVertical){
           c.css({ height:"100%"});
