@@ -42,6 +42,7 @@
       onExtContentLoad:function(){},
       onExtClose:function(){},
       hidePanelsOnClose:true,
+      closeOnExternalClick:true,
       autoCloseTime:0,
       slideTimer:300
     },
@@ -125,12 +126,12 @@
         }
 
         if (extruder.attr("extUrl")){
-            extruder.setMbExtruderContent({
-              url:extruder.attr("extUrl"),
-              data:extruder.attr("extData"),
-              callback: function(){
-                if (extruder.get(0).options.onExtContentLoad) extruder.get(0).options.onExtContentLoad();
-              }
+          extruder.setMbExtruderContent({
+            url:extruder.attr("extUrl"),
+            data:extruder.attr("extData"),
+            callback: function(){
+              if (extruder.get(0).options.onExtContentLoad) extruder.get(0).options.onExtContentLoad();
+            }
           })
         }else{
           var container=$("<div>").addClass("text").css({width:extruder.get(0).options.width-20, height:extruder.height()-20, overflowY:"auto"});
@@ -147,7 +148,8 @@
         });
 
         c.bind("mouseleave", function(){
-          $(document).one("click.extruder"+extruder.get(0).idx,function(){extruder.closeMbExtruder();});
+          if(extruder.get(0).options.closeOnExternalClick)
+            $(document).one("click.extruder"+extruder.get(0).idx,function(){extruder.closeMbExtruder();});
           timer=setTimeout(function(){
 
             if(extruder.get(0).options.autoCloseTime > 0){
