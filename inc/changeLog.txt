@@ -1,6 +1,9 @@
 jquery.mb.extruder
 
 
+2.2
+    1. added "autoOpenTime" to control the open on mouseover behaviour. (0= do not open onmouseover - value in milliseconds)
+
 2.1
     1. Solved an issue with jquery 1.4.3. (.content display none was not resetted once opened with animate and jquery 1.4.3)
 

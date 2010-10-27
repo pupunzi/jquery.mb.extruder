@@ -11,7 +11,7 @@
 
 /*
  * Name:jquery.mb.extruder
- * Version: 2.1
+ * Version: 2.2
  * dependencies: jquery.metadata.js, jquery.mb.flipText.js, jquery.hoverintent.js
  */
 
@@ -27,7 +27,7 @@
 
   $.mbExtruder= {
     author:"Matteo Bicocchi",
-    version:"2.1",
+    version:"2.2",
     defaults:{
       width:350,
       positionFixed:true,
