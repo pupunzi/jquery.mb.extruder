@@ -57,6 +57,12 @@
     span.btn:hover{
       background-color:#000;
     }
+    input{
+        padding:10px;
+        border:none;
+        -moz-box-shadow:#999 2px 0px 3px;
+        -webkit-box-shadow:#999 2px 0px 3px;        
+    }
 
       /*
       custom style for extruder
@@ -178,6 +184,11 @@
         onExtClose:function(){}
       });
 
+        $.fn.changeLabel=function(text){
+            $(this).find(".flapLabel").html(text);
+            $(this).find(".flapLabel").mbFlipText();
+        }
+
     });
 
   </script>
@@ -203,8 +214,9 @@
     <h3>Try now:</h3>
     <span class="btn" onclick="$('#extruderTop').openMbExtruder(true);setTimeout(function(){$('#top2').disableExtruderVoice();},400);"><a style="color:red">disable</a> second voice of mbExtruder Top</span>
     <span class="btn" onclick="setTimeout(function(){$('#top2').enableExtruderVoice();},400);"><a style="color:green">enable</a> second voice of mbExtruder Top</span>
-    <span class="btn" onclick="$('#extruderLeft').openMbExtruder(true);$('#extruderLeft').openPanels()">open "Our network"</span>
+    <span class="btn" onclick="$('#extruderLeft').openMbExtruder(true);$('#extruderLeft').openPanel()">open "Our network"</span>
     <span class="btn" onclick="$('#extruderLeft').closeMbExtruder();">close "Our network"</span>
+    <br><br><input type="text" id="label">  <span class="btn" onclick="$('#extruderLeft').changeLabel($('#label').val()!=''?$('#label').val():'newLabel');">change left label</span>
     <br>
     <br>
     take a look at the documentation to see how simple is the configuration!

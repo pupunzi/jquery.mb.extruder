@@ -14,14 +14,14 @@
 .extruder.left .content{border-right:3px solid #000000;}
 .extruder.left .ext_wrapper{height:100%;}
 .extruder.left .footer{display:none;}
-.extruder.left .flap{font-size:18px;color:white;top:0;padding:10px 0 10px 10px;margin-right:-37px;background:#000000;width:30px;position:absolute;right:0;-moz-border-radius:0 8px 8px 0;-webkit-border-top-left-radius:0;-webkit-border-top-right-radius:8px;-webkit-border-bottom-left-radius:8px;-webkit-border-bottom-right-radius:0;border-top-left-radius:0;border-top-right-radius:8px;border-bottom-left-radius:8px;border-bottom-right-radius:0;-moz-box-shadow:2px 0 5px #999999;-webkit-box-shadow:2px 0 5px #999999;box-shadow:2px 0 5px #999999;}
+.extruder.left .flap{font-size:18px;color:white;top:0;padding:10px 0 10px 10px;margin-right:-37px;background:#000000;width:30px;position:absolute;right:0;-moz-border-radius:0 8px 0 8px;-webkit-border-top-left-radius:0;-webkit-border-top-right-radius:8px;-webkit-border-bottom-left-radius:0;-webkit-border-bottom-right-radius:8px;border-top-left-radius:0;border-top-right-radius:8px;border-bottom-left-radius:0;border-bottom-right-radius:8px;-moz-box-shadow:2px 0 5px #999999;-webkit-box-shadow:2px 0 5px #999999;box-shadow:2px 0 5px #999999;}
 .extruder.left .flap .flapLabel{background:#000000;}
 .extruder.right{height:100%;background:url("../elements/extruder_blank.png");}
 .extruder.right .content{border-left:3px solid #000000;}
 .extruder.right.open .content{-moz-box-shadow:-2px 0 5px #999999;-webkit-box-shadow:-2px 0 5px #999999;box-shadow:-2px 0 5px #999999;}
 .extruder.right .ext_wrapper{height:100%;right:0;}
 .extruder.right .footer{display:none;}
-.extruder.right .flap{font-size:18px;color:white;top:0;padding:10px 0 10px 10px;background:#000000;width:30px;position:absolute;left:-37px;-moz-border-radius:8px 0 0 8px;-webkit-border-top-left-radius:8px;-webkit-border-top-right-radius:0;-webkit-border-bottom-left-radius:0;-webkit-border-bottom-right-radius:8px;border-top-left-radius:8px;border-top-right-radius:0;border-bottom-left-radius:0;border-bottom-right-radius:8px;-moz-box-shadow:-2px 0 5px #999999;-webkit-box-shadow:-2px 0 5px #999999;box-shadow:-2px 0 5px #999999;}
+.extruder.right .flap{font-size:18px;color:white;top:0;padding:10px 0 10px 10px;background:#000000;width:30px;position:absolute;left:-37px;-moz-border-radius:8px 0 8px 0;-webkit-border-top-left-radius:8px;-webkit-border-top-right-radius:0;-webkit-border-bottom-left-radius:8px;-webkit-border-bottom-right-radius:0;border-top-left-radius:8px;border-top-right-radius:0;border-bottom-left-radius:8px;border-bottom-right-radius:0;-moz-box-shadow:-2px 0 5px #999999;-webkit-box-shadow:-2px 0 5px #999999;box-shadow:-2px 0 5px #999999;}
 .extruder.right .flap .flapLabel{background:#000000;}
 .extruder .voice{font:18px/24px Arial,Helvetica,sans-serif;color:white;padding:5px;padding-left:10px;height:27px;border-bottom:1px solid #333333;text-shadow:2px 2px 2px #333333;}
 .extruder .voice:last-child{border-bottom:none;}
