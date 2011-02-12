@@ -74,13 +74,13 @@
         extruder.addClass(this.options.position);
         var isHorizontal = this.options.position=="top" || this.options.position=="bottom";
         extruderStyle=
-                this.options.position=="top"?
-                {position:position,top:0,left:"50%",marginLeft:-this.options.width/2,width:this.options.width}:
-                        this.options.position=="bottom"?
-                        {position:position,bottom:0,left:"50%",marginLeft:-this.options.width/2,width:this.options.width}:
-                                this.options.position=="left"?
-                                {position:position,top:0,left:0,width:1}:
-                                {position:position,top:0,right:0,width:1};
+            this.options.position=="top"?
+            {position:position,top:0,left:"50%",marginLeft:-this.options.width/2,width:this.options.width}:
+                this.options.position=="bottom"?
+                {position:position,bottom:0,left:"50%",marginLeft:-this.options.width/2,width:this.options.width}:
+                    this.options.position=="left"?
+                    {position:position,top:0,left:0,width:1}:
+                    {position:position,top:0,right:0,width:1};
         extruder.css(extruderStyle);
         if(!isIE) extruder.css({opacity:this.options.extruderOpacity});
         extruder.wrapInner("<div class='ext_wrapper'></div>");
@@ -148,18 +148,22 @@
           }
         }).bind("mouseenter",function(){
           if(extruder.get(0).options.autoOpenTime>0){
-              openTimer=setTimeout(function(){
-                extruder.openMbExtruder();
-                $(document).one("click.extruder"+extruder.get(0).idx,function(){extruder.closeMbExtruder();});
-              },extruder.get(0).options.autoOpenTime);
+            openTimer=setTimeout(function(){
+              extruder.openMbExtruder();
+              $(document).one("click.extruder"+extruder.get(0).idx,function(){extruder.closeMbExtruder();});
+            },extruder.get(0).options.autoOpenTime);
           }
         }).bind("mouseleave",function(){
           clearTimeout(openTimer);
         });
 
-        c.bind("mouseleave", function(){
-          if(extruder.get(0).options.closeOnExternalClick)
-            $(document).one("click.extruder"+extruder.get(0).idx,function(){extruder.closeMbExtruder();});
+        c.bind("mouseleave", function(e){
+          if(extruder.get(0).options.closeOnExternalClick){
+
+            //Chrome bug: FORMELEMENT fire mouseleave event.
+            if(!$(e.target).parents().is(".text"))
+              $(document).one("click.extruder"+extruder.get(0).idx,function(){extruder.closeMbExtruder();});
+          }
           closeTimer=setTimeout(function(){
 
             if(extruder.get(0).options.autoCloseTime > 0){
@@ -305,12 +309,12 @@
         voice.append("<span class='settingsBtn'/>");
         voice.find(".settingsBtn").css({opacity:.5});
         voice.find(".settingsBtn").hover(
-                function(){
-                  $(this).css({opacity:1});
-                },
-                function(){
-                  $(this).not(".sel").css({opacity:.5});
-                }).click(function(){
+                                        function(){
+                                          $(this).css({opacity:1});
+                                        },
+                                        function(){
+                                          $(this).not(".sel").css({opacity:.5});
+                                        }).click(function(){
           if ($(this).parents().hasClass("sel")){
             if(opt.accordionPanels)
               extruder.hidePanelsOnClose();
@@ -334,8 +338,8 @@
               var c= $(html);
               content.html(c);
               content.children().not(".text")
-                      .addClass("panelVoice")
-                      .click(function(){
+                  .addClass("panelVoice")
+                  .click(function(){
                 extruder.closeMbExtruder();
               });
               content.slideDown(400);
