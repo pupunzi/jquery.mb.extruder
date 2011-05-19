@@ -26,7 +26,6 @@
 .extruder .voice{font:18px/24px Arial,Helvetica,sans-serif;color:white;padding:5px;padding-left:10px;height:27px;border-bottom:1px solid #333333;text-shadow:2px 2px 2px #333333;}
 .extruder .voice:last-child{border-bottom:none;}
 .extruder .voice .disabled{cursor:default;}
-.extruder .text{background:#222;font:14px/16px Arial,Helvetica,sans-serif;color:gray;padding:10px;border-bottom:1px solid #333333;text-shadow:2px 2px 2px #333333;}
 .extruder .voice.hover{background:url("../elements/extruder_voiceHover.png") no-repeat top;}
 .extruder .voice.sel{background:url("../elements/extruder_voiceHover.png") no-repeat top;}
 .extruder .voice img{float:left;margin-right:15px;}
