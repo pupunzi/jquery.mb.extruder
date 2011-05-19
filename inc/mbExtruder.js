@@ -11,7 +11,7 @@
 
 /*
  * Name:jquery.mb.extruder
- * Version: 2.2
+ * Version: 2.3
  * dependencies: jquery.metadata.js, jquery.mb.flipText.js, jquery.hoverintent.js
  */
 
@@ -27,7 +27,7 @@
 
 	$.mbExtruder= {
 		author:"Matteo Bicocchi",
-		version:"2.2",
+		version:"2.3",
 		defaults:{
 			width:350,
 			positionFixed:true,
@@ -141,10 +141,11 @@
 				}
 
 				flap.bind("click",function(){
-					if (!extruder.attr("open")){
+					if (!extruder.attr("isOpened")){
 						extruder.openMbExtruder();
 					}else{
 						extruder.closeMbExtruder();
+						extruder.removeAttr("isOpened");
 					}
 				}).bind("mouseenter",function(){
 					if(extruder.get(0).options.autoOpenTime>0){
@@ -228,10 +229,10 @@
 
 		openMbExtruder:function(c){
 			var extruder= $(this);
-			extruder.attr("open",true);
+			extruder.attr("isOpened",true);
 			$(document).unbind("click.extruder"+extruder.get(0).idx);
 			var opt= extruder.get(0).options;
-			extruder.addClass("open");
+			extruder.addClass("isOpened");
 			if(!isIE) extruder.css("opacity",1);
 			var position= opt.position;
 			extruder.mb_bringToFront();
@@ -255,9 +256,9 @@
 
 		closeMbExtruder:function(){
 			var extruder= $(this);
-			extruder.removeAttr("open");
+			extruder.removeAttr("isOpened");
 			var opt= extruder.get(0).options;
-			extruder.removeClass("open");
+			extruder.removeClass("isOpened");
 			$(document).unbind("click.extruder"+extruder.get(0).idx);
 			if(!isIE) extruder.css("opacity",opt.extruderOpacity);
 			if(opt.hidePanelsOnClose) extruder.hidePanelsOnClose();
