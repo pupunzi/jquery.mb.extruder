@@ -213,7 +213,7 @@
 				type: "POST",
 				url: url,
 				data: data,
-				async:false,
+				async:true,
 				dataType:"html",
 				success: function(html){
 					where.find(".container").append(html);
@@ -337,7 +337,7 @@
 						type: "POST",
 						url: voice.attr("panel"),
 						data: voice.attr("data"),
-						async:false,
+						async:true,
 						dataType:"html",
 						success: function(html){
 							var c= $(html);
