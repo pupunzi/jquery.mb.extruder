@@ -12,7 +12,7 @@
 /*
  * jQuery.mb.components: jquery.mb.flipV
  * version: 1.1
- * © 2001 - 2009 Matteo Bicocchi (pupunzi), Open Lab
+ * © 2001 - 2011 Matteo Bicocchi (pupunzi), Open Lab
  *
  */
 
