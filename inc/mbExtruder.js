@@ -103,6 +103,8 @@
 					if (extruder.metadata().title) extruder.attr("extTitle",extruder.metadata().title);
 					if (extruder.metadata().url) extruder.attr("extUrl",extruder.metadata().url);
 					if (extruder.metadata().data) extruder.attr("extData",extruder.metadata().data);
+					if (extruder.metadata().htmlCallback) extruder.attr("extHtmlCallback",extruder.metadata().htmlCallback);
+					if (extruder.metadata().htmlText) extruder.attr("extHtmlText",extruder.metadata().htmlText);
 				}
 				var flapFooter=$("<div class='footer'/>");
 				var flap=$("<div class='flap'><span class='flapLabel'/></div>");
@@ -126,9 +128,11 @@
 					flapLabel.html(txt).css({whiteSpace:"noWrap"});
 				}
 
-				if (extruder.attr("extUrl")){
+				if (extruder.attr("extUrl") || extruder.attr("extHtmlCallback") || extruder.attr("extHtmlText")){
 					extruder.setMbExtruderContent({
 						url:extruder.attr("extUrl"),
+						htmlCallback:extruder.attr("extHtmlCallback"),
+						htmlText:extruder.attr("extHtmlText"),
 						data:extruder.attr("extData"),
 						callback: function(){
 							if (extruder.get(0).options.onExtContentLoad) extruder.get(0).options.onExtContentLoad();
@@ -191,14 +195,25 @@
 		},
 
 		setMbExtruderContent: function(options){
+			var htmlSource = false;
 			this.options = {
 				url:false,
 				data:"",
-				callback:function(){}
+				callback:function(){},
+				htmlCallback:false,
+				htmlText:false,
 			};
 			$.extend (this.options, options);
-			if (!this.options.url || this.options.url.length==0){
-				alert("internal error: no URL to call");
+			if (this.options.url && this.options.url.length > 0) {
+				htmlSource = 'url';
+			} else if (this.options.htmlCallback && this.options.htmlCallback.length > 0 && typeof window[this.options.htmlCallback] == 'function' ) {
+				htmlSource = 'callback';
+			} else if (this.options.htmlText && this.options.htmlText.length > 0) {
+				htmlSource = 'text';
+			}
+
+			if (!htmlSource) {
+				alert("internal error: no URL, callback or text to use for content");
 				return;
 			}
 			var url=this.options.url;
@@ -209,22 +224,29 @@
 			if (!($.browser.msie && $.browser.version<=7))
 				container.css({width:$(this).get(0).options.width});
 			where.find(".content").wrapInner(container);
-			$.ajax({
-				type: "POST",
-				url: url,
-				data: data,
-				async:true,
-				dataType:"html",
-				success: function(html){
-					where.find(".container").append(html);
-					voice=where.find(".voice");
-					voice.hover(function(){$(this).addClass("hover");},function(){$(this).removeClass("hover");});
-					where.setExtruderVoicesAction();
-					if (cb) {
-						setTimeout(function(){cb();},100);
-					}
+			var successFunction = function(html){
+				where.find(".container").append(html);
+				voice=where.find(".voice");
+				voice.hover(function(){$(this).addClass("hover");},function(){$(this).removeClass("hover");});
+				where.setExtruderVoicesAction();
+				if (cb) {
+					setTimeout(function(){cb();},100);
 				}
-			});
+			};
+			if (htmlSource == 'url') {
+				$.ajax({
+					type: "POST",
+					url: url,
+					data: data,
+					async:false,
+					dataType:"html",
+					success: function(html) {successFunction(html);}
+				});
+			} else if (htmlSource == 'callback') {
+				successFunction(window[this.options.htmlCallback](data));
+			} else if (htmlSource == 'text') {
+				successFunction(this.options.htmlText);
+			}
 		},
 
 		openMbExtruder:function(c){
@@ -293,6 +315,7 @@
 	 */
 
 	$.fn.setExtruderVoicesAction=function(){
+		var htmlSource = false;
 		var extruder=$(this);
 		var opt=extruder.get(0).options;
 		var voices= $(this).find(".voice");
@@ -301,6 +324,8 @@
 			if ($.metadata){
 				$.metadata.setType("class");
 				if (voice.metadata().panel) voice.attr("panel",voice.metadata().panel);
+				if (voice.metadata().htmlCallback) voice.attr("htmlCallback",voice.metadata().htmlCallback);
+				if (voice.metadata().htmlText) voice.attr("htmlText",voice.metadata().htmlText);
 				if (voice.metadata().data) voice.attr("data",voice.metadata().data);
 				if (voice.metadata().disabled) voice.attr("setDisabled", voice.metadata().disabled);
 			}
@@ -308,7 +333,14 @@
 			if (voice.attr("setDisabled"))
 				voice.disableExtruderVoice();
 
-			if (voice.attr("panel") && voice.attr("panel")!="false"){
+				if (voice.attr("panel") && voice.attr("panel").length > 0) {
+					htmlSource = 'panel';
+				} else if (voice.attr("htmlCallback") && voice.attr("htmlCallback").length > 0 && typeof window[voice.attr("htmlCallback")] == 'function' ) {
+					htmlSource = 'callback';
+				} else if (voice.attr("htmlText") && voice.attr("htmlText").length > 0) {
+					htmlSource = 'text';
+				}
+				if (htmlSource){
 				voice.append("<span class='settingsBtn'/>");
 				voice.find(".settingsBtn").css({opacity:.5});
 				voice.find(".settingsBtn").hover(
@@ -333,23 +365,31 @@
 					}
 					var content=$("<div class='optionsPanel'></div>");
 					voice.after(content);
-					$.ajax({
-						type: "POST",
-						url: voice.attr("panel"),
-						data: voice.attr("data"),
-						async:true,
-						dataType:"html",
-						success: function(html){
-							var c= $(html);
-							content.html(c);
-							content.children().not(".text")
-									.addClass("panelVoice")
-									.click(function(){
-								extruder.closeMbExtruder();
-							});
-							content.slideDown(400);
-						}
-					});
+					var successFunction = function(html){
+						var c= $(html);
+						content.html(c);
+						content.children().not(".text")
+								.addClass("panelVoice")
+								.click(function(){
+							extruder.closeMbExtruder();
+						});
+						content.slideDown(400);
+					}
+					if (htmlSource == 'panel') {
+						$.ajax({
+							type: "POST",
+							url: voice.attr("panel"),
+							data: voice.attr("data"),
+							async:false,
+							dataType:"html",
+							success: function(html) {successFunction(html);}
+						});
+					} else if (htmlSource == 'callback') {
+						successFunction(window[voice.attr("htmlCallback")](voice.attr("data")));
+					} else if (htmlSource == 'text') {
+						successFunction(voice.attr("htmlText"));
+					}
+
 					voice.addClass("sel");
 					voice.find(".settingsBtn").addClass("sel").css({opacity:1});
 				});
