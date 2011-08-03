@@ -1,0 +1,31 @@
+<html>
+<head>
+  <link href="css/mbExtruder.css" media="all" rel="stylesheet" type="text/css">
+
+  <script type="text/javascript" src="http://jquery.com/src/jquery-latest.js"></script>
+  <script type="text/javascript" src="inc/jquery.hoverIntent.min.js"></script>
+  <script type="text/javascript" src="inc/jquery.metadata.js"></script>
+  <script type="text/javascript" src="inc/mbExtruder.js"></script>
+  <script type="text/javascript">
+    $(function(){
+      $("#extruderTopCallback").buildMbExtruder({});
+    });
+
+		var contentFromFunction = function(data) {
+			return [
+				'<div class="voice {panel:\'parts/extr.creativity.html\'}"><span class="label">1. ' + data + '</span></div>',
+				'<div class="voice {panel:\'parts/extr.network.html\'}"><span class="label">2. '    + data + '</span></div>',
+				'<div class="voice {htmlCallback:\'panelFromFunction\', data: \'{&quot;href&quot; : &quot;http://google.com&quot;, &quot;title&quot; : &quot;Google from htmlCallback&quot;}\'}"><span class="label">3. ' + data + '</span></div>'
+			].join('\n');
+		}
+
+		var panelFromFunction = function(data) {
+			var info = JSON.parse(unescape(data));
+			return '<div><a href="' + info.href + '" class="external" >' + info.title + '</a></div>';
+		}
+  </script>
+</head>
+<body>
+<div id="extruderTopCallback" class="{title:'extruder top', htmlCallback: 'contentFromFunction', data: 'Menu from htmlCallback'}"></div>
+</body>
+</html>
