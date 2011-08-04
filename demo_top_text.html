@@ -1,0 +1,32 @@
+<!doctype html>
+
+<!--
+  ~ jquery.mb.components
+  ~ Copyright (c) 2001-2010. Matteo Bicocchi (Pupunzi); Open lab srl, Firenze - Italy
+  ~ email: mbicocchi@open-lab.com
+  ~ site: http://pupunzi.com
+  ~
+  ~ Licences: MIT, GPL
+  ~ http://www.opensource.org/licenses/mit-license.php
+  ~ http://www.gnu.org/licenses/gpl.html
+  -->
+<html>
+<head>
+  <link href="css/mbExtruder.css" media="all" rel="stylesheet" type="text/css">
+
+  <script type="text/javascript" src="http://jquery.com/src/jquery-latest.js"></script>
+  <script type="text/javascript" src="inc/jquery.hoverIntent.min.js"></script>
+  <script type="text/javascript" src="inc/jquery.metadata.js"></script>
+  <script type="text/javascript" src="inc/mbExtruder.js"></script>
+  <script type="text/javascript">
+    $(function(){
+      $("#extruderTopText").buildMbExtruder({});
+    });
+
+  </script>
+</head>
+<body>
+<!-- Nesting becomes quite ugly but it works -->
+<div id="extruderTopText" class="{title:'extruder top', htmlText: '<div class=&quot;voice {htmlText:&amp;quot;&lt;div&gt;&lt;a href=&amp;amp;quot;http://google.com&amp;amp;quot;&gt;Google from htmlText&lt;/a&gt;&lt;/div&gt;&amp;quot;}&quot;><span class=&quot;label&quot;>Menu from Text</span></div>'}"></div>
+</body>
+</html>

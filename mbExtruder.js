@@ -245,7 +245,7 @@
 			} else if (htmlSource == 'callback') {
 				successFunction(window[this.options.htmlCallback](data));
 			} else if (htmlSource == 'text') {
-				successFunction(this.options.htmlText);
+				successFunction(unescape(this.options.htmlText));
 			}
 		},
 
@@ -315,11 +315,11 @@
 	 */
 
 	$.fn.setExtruderVoicesAction=function(){
-		var htmlSource = false;
 		var extruder=$(this);
 		var opt=extruder.get(0).options;
 		var voices= $(this).find(".voice");
 		voices.each(function(){
+			var htmlSource = false;
 			var voice=$(this);
 			if ($.metadata){
 				$.metadata.setType("class");
@@ -340,6 +340,7 @@
 				} else if (voice.attr("htmlText") && voice.attr("htmlText").length > 0) {
 					htmlSource = 'text';
 				}
+
 				if (htmlSource){
 				voice.append("<span class='settingsBtn'/>");
 				voice.find(".settingsBtn").css({opacity:.5});
@@ -387,7 +388,7 @@
 					} else if (htmlSource == 'callback') {
 						successFunction(window[voice.attr("htmlCallback")](voice.attr("data")));
 					} else if (htmlSource == 'text') {
-						successFunction(voice.attr("htmlText"));
+						successFunction(unescape(voice.attr("htmlText")));
 					}
 
 					voice.addClass("sel");
