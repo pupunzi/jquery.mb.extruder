@@ -210,7 +210,7 @@
 				container.css({width:$(this).get(0).options.width});
 			where.find(".content").wrapInner(container);
 			$.ajax({
-				type: "POST",
+				type: "GET",
 				url: url,
 				data: data,
 				async:true,
@@ -334,7 +334,7 @@
 					var content=$("<div class='optionsPanel'></div>");
 					voice.after(content);
 					$.ajax({
-						type: "POST",
+						type: "GET",
 						url: voice.attr("panel"),
 						data: voice.attr("data"),
 						async:true,
