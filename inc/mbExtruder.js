@@ -141,25 +141,25 @@
           extruder.setExtruderVoicesAction();
         }
 
-        flap.bind("click",function(){
+        flap.on("click",function(){
           if (!extruder.attr("isOpened")){
             extruder.openMbExtruder();
           }else{
             extruder.closeMbExtruder();
             extruder.removeAttr("isOpened");
           }
-        }).bind("mouseenter",function(){
+        }).on("mouseenter",function(){
             if(extruder.get(0).options.autoOpenTime>0){
               openTimer=setTimeout(function(){
                 extruder.openMbExtruder();
                 $(document).one("click.extruder"+extruder.get(0).idx,function(){extruder.closeMbExtruder();});
               },extruder.get(0).options.autoOpenTime);
             }
-          }).bind("mouseleave",function(){
+          }).on("mouseleave",function(){
             clearTimeout(openTimer);
           });
 
-        c.bind("mouseleave", function(e){
+        c.on("mouseleave", function(e){
           if(extruder.get(0).options.closeOnExternalClick){
 
             //Chrome bug: FORMELEMENT fire mouseleave event.
@@ -172,9 +172,9 @@
               extruder.closeMbExtruder();
             }
           },extruder.get(0).options.autoCloseTime);
-        }).bind("mouseenter", function(){
+        }).on("mouseenter", function(){
             clearTimeout(closeTimer);
-            $(document).unbind("click.extruder"+extruder.get(0).idx);
+            $(document).off("click.extruder"+extruder.get(0).idx);
           });
 
         if (isVertical){
@@ -231,7 +231,7 @@
     openMbExtruder:function(c){
       var extruder= $(this);
       extruder.attr("isOpened",true);
-      $(document).unbind("click.extruder"+extruder.get(0).idx);
+      $(document).off("click.extruder"+extruder.get(0).idx);
       var opt= extruder.get(0).options;
       extruder.addClass("isOpened");
       if(!isIE) extruder.css("opacity",1);
@@ -260,7 +260,7 @@
       extruder.removeAttr("isOpened");
       var opt= extruder.get(0).options;
       extruder.removeClass("isOpened");
-      $(document).unbind("click.extruder"+extruder.get(0).idx);
+      $(document).off("click.extruder"+extruder.get(0).idx);
       if(!isIE) extruder.css("opacity",opt.extruderOpacity);
       if(opt.hidePanelsOnClose) extruder.hidePanelsOnClose();
       if (opt.position=="top" || opt.position=="bottom"){
@@ -383,7 +383,7 @@
     voice.hover(function(){$(this).removeClass("hover");},function(){$(this).removeClass("hover");});
     label.addClass("disabled").css("cursor","default");
     voice.find(".settingsBtn").hide();
-    voice.bind("click",function(event){
+    voice.on("click",function(event){
       event.stopPropagation();
       return false;
     });
@@ -394,7 +394,7 @@
     voice.attr("setDisabled",false);
     voice.find(".label").css("opacity",1);
     voice.find(".label").removeClass("disabled").css("cursor","pointer");
-    voice.unbind("click");
+    voice.off("click");
     voice.find(".settingsBtn").show();
   };
 
