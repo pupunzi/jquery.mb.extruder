@@ -16,224 +16,222 @@
   ~  http://www.opensource.org/licenses/mit-license.php
   ~  http://www.gnu.org/licenses/gpl.html
   ~
-  ~  last modified: 06/04/13 23.07
+  ~  last modified: 02/10/13 22.42
   ~  ******************************************************************************/
   -->
 
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>mb.extruder</title>
-	<style type="text/css">
-		body{
-			font-family:Arial, Helvetica, sans-serif;
-			margin:10px;
-		}
-		.wrapper{
-			position:relative;
-			font-family:Arial, Helvetica, sans-serif;
-			padding-top:90px;
-			padding-left:50px;
-			width:80%;
-			margin:auto
-		}
-		.wrapper .text{
-			font-family:Arial, Helvetica, sans-serif;
-			padding-top:50px;
-		}
-		.wrapper h1{
-			font-family:Arial, Helvetica, sans-serif;
-			font-size:26px;
-		}
-		.longText{
-			margin-top:20px;
-			width:600px;
-			font:18px/24px Arial, Helvetica, sans-serif;
-			color:gray;
-		}
-		span.btn{
-			padding:10px;
-			display:inline-block;
-			cursor:pointer;
-			font:12px/14px Arial, Helvetica, sans-serif;
-			color:#aaa;
-			background-color:#eee;
-			-moz-border-radius:10px;
-			-webkit-border-radius:10px;
-			-moz-box-shadow:#999 2px 0px 3px;
-			-webkit-box-shadow:#999 2px 0px 3px;
-		}
-		span.btn:hover{
-			background-color:#000;
-		}
-		input{
-			padding:10px;
-			border:none;
-			-moz-box-shadow:#999 2px 0px 3px;
-			-webkit-box-shadow:#999 2px 0px 3px;
-		}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>mb.extruder</title>
+    <style type="text/css">
+        body{
+            font-family:Arial, Helvetica, sans-serif;
+            margin:10px;
+        }
+        .wrapper{
+            position:relative;
+            font-family:Arial, Helvetica, sans-serif;
+            padding-top:90px;
+            padding-left:50px;
+            width:80%;
+            margin:auto
+        }
+        .wrapper .text{
+            font-family:Arial, Helvetica, sans-serif;
+            padding-top:50px;
+        }
+        .wrapper h1{
+            font-family:Arial, Helvetica, sans-serif;
+            font-size:26px;
+        }
+        .longText{
+            margin-top:20px;
+            width:600px;
+            font:18px/24px Arial, Helvetica, sans-serif;
+            color:gray;
+        }
+        span.btn{
+            padding:10px;
+            display:inline-block;
+            cursor:pointer;
+            font:12px/14px Arial, Helvetica, sans-serif;
+            color:#aaa;
+            background-color:#eee;
+            -moz-border-radius:10px;
+            -webkit-border-radius:10px;
+            -moz-box-shadow:#999 2px 0px 3px;
+            -webkit-box-shadow:#999 2px 0px 3px;
+        }
+        span.btn:hover{
+            background-color:#000;
+        }
+        input{
+            padding:10px;
+            border:none;
+            -moz-box-shadow:#999 2px 0px 3px;
+            -webkit-box-shadow:#999 2px 0px 3px;
+        }
 
-			/*
-									custom style for extruder
-									*/
+        /*custom style for extruder*/
 
-		.extruder.left.a .flap{
-			font-size:18px;
-			color:white;
-			top:0;
-			padding:10px 0 10px 10px;
-			background:#772B14;
-			width:30px;
-			position:absolute;
-			right:0;
-			-moz-border-radius:0 10px 10px 0;
-			-webkit-border-top-right-radius:10px;
-			-webkit-border-bottom-right-radius:10px;
-			-moz-box-shadow:#666 2px 0px 3px;
-			-webkit-box-shadow:#666 2px 0px 3px;
-		}
+        .extruder.left.a .flap{
+            font-size:18px;
+            color:white;
+            top:0;
+            padding:10px 0 10px 10px;
+            background:#772B14;
+            width:30px;
+            position:absolute;
+            right:0;
+            -moz-border-radius:0 10px 10px 0;
+            -webkit-border-top-right-radius:10px;
+            -webkit-border-bottom-right-radius:10px;
+            -moz-box-shadow:#666 2px 0px 3px;
+            -webkit-box-shadow:#666 2px 0px 3px;
+        }
 
-		.extruder.left.a .content{
-			border-right:3px solid #772B14;
-			background:rgba(255,255,255,.95);
-		}
+        .extruder.left.a .content{
+            border-right:3px solid #772B14;
+            background:rgba(255,255,255,.95);
+        }
 
-		.extruder.top .optionsPanel .panelVoice a:hover{
-			color:#fff;
-			background: url("elements/black_op_30.png");
-			border-bottom:1px solid #000;
-		}
-		.extruder.top .optionsPanel .panelVoice a{
-			border-bottom:1px solid #000;
-		}
+        .extruder.top .optionsPanel .panelVoice a:hover{
+            color:#fff;
+            background: url("elements/black_op_30.png");
+            border-bottom:1px solid #000;
+        }
+        .extruder.top .optionsPanel .panelVoice a{
+            border-bottom:1px solid #000;
+        }
 
-		.extruder.left.a .flap .flapLabel{
-			background:#772B14;
-		}
-/*
+        .extruder.left.a .flap .flapLabel{
+            background:#772B14;
+        }
+            /*
 
-		.extruder.top{
-			margin-left:-200px!important;
-		}
-*/
-	</style>
+                    .extruder.top{
+                        margin-left:-200px!important;
+                    }
+            */
+    </style>
 
-	<link href="css/mbExtruder.css" media="all" rel="stylesheet" type="text/css">
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
-	<script type="text/javascript" src="inc/jquery.hoverIntent.min.js"></script>
-	<script type="text/javascript" src="inc/jquery.mb.flipText.js"></script>
-	<script type="text/javascript" src="inc/mbExtruder.js"></script>
-	<script type="text/javascript">
+    <link href="css/mbExtruder.css" media="all" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+    <script type="text/javascript" src="inc/jquery.hoverIntent.min.js"></script>
+    <script type="text/javascript" src="inc/jquery.mb.flipText.js"></script>
+    <script type="text/javascript" src="inc/mbExtruder.js"></script>
+    <script type="text/javascript">
 
-		$(function(){
+        $(function(){
 
 
-			if (self.location.href == top.location.href){
-				$("body").css({font:"normal 13px/16px 'trebuchet MS', verdana, sans-serif"});
-				var logo=$("<a href='http://pupunzi.com'><img id='logo' border='0' src='http://pupunzi.com/images/logo.png' alt='mb.ideas.repository' style='display:none;'></a>").css({position:"absolute"});
-				$("body").prepend(logo);
-				$("#logo").fadeIn();
-			}
+            if (self.location.href == top.location.href){
+                $("body").css({font:"normal 13px/16px 'trebuchet MS', verdana, sans-serif"});
+                var logo=$("<a href='http://pupunzi.com'><img id='logo' border='0' src='http://pupunzi.com/images/logo.png' alt='mb.ideas.repository' style='display:none;'></a>").css({position:"absolute"});
+                $("body").prepend(logo);
+                $("#logo").fadeIn();
+            }
 
-			$("#extruderTop").buildMbExtruder({
-				positionFixed:false,
-				position:"top",
-				width:350,
-				extruderOpacity:1,
-				autoCloseTime:0,
-				autoOpenTime:1000,
-				hidePanelsOnClose:false,
-				onExtOpen:function(){},
-				onExtContentLoad:function(){},
-				onExtClose:function(){}
-			});
+            $("#extruderTop").buildMbExtruder({
+                positionFixed:false,
+                position:"top",
+                width:350,
+                extruderOpacity:1,
+                autoCloseTime:0,
+                autoOpenTime:1000,
+                hidePanelsOnClose:false,
+                onExtOpen:function(){},
+                onExtContentLoad:function(){},
+                onExtClose:function(){}
+            });
 
-			$("#extruderBottom").buildMbExtruder({
-				position:"bottom",
-				width:350,
-				extruderOpacity:1,
-				onExtOpen:function(){},
-				onExtContentLoad:function(){},
-				onExtClose:function(){}
-			});
+            $("#extruderBottom").buildMbExtruder({
+                position:"bottom",
+                width:350,
+                extruderOpacity:1,
+                onExtOpen:function(){},
+                onExtContentLoad:function(){},
+                onExtClose:function(){}
+            });
 
-			$("#extruderLeft").buildMbExtruder({
-				position:"left",
-				width:300,
-				extruderOpacity:.8,
+            $("#extruderLeft").buildMbExtruder({
+                position:"left",
+                width:300,
+                extruderOpacity:.8,
 
-				hidePanelsOnClose:false,
-				accordionPanels:false,
-				onExtOpen:function(){},
-				onExtContentLoad:function(){$("#extruderLeft").openPanel();},
-				onExtClose:function(){}
-			});
+                hidePanelsOnClose:false,
+                accordionPanels:false,
+                onExtOpen:function(){},
+                onExtContentLoad:function(){$("#extruderLeft").openPanel();},
+                onExtClose:function(){}
+            });
 
-			$("#extruderLeft2").buildMbExtruder({
-				position:"left",
-				width:300,
-				positionFixed:false,
-				top:0,
-				extruderOpacity:.8,
-				onExtOpen:function(){},
-				onExtContentLoad:function(){},
-				onExtClose:function(){}
-			});
+            $("#extruderLeft2").buildMbExtruder({
+                position:"left",
+                width:300,
+                positionFixed:false,
+                top:0,
+                extruderOpacity:.8,
+                onExtOpen:function(){},
+                onExtContentLoad:function(){},
+                onExtClose:function(){}
+            });
 
-			$("#extruderRight").buildMbExtruder({
-				position:"right",
-				width:300,
-				extruderOpacity:.8,
-				textOrientation:"tb",
-				onExtOpen:function(){},
-				onExtContentLoad:function(){},
-				onExtClose:function(){}
-			});
+            $("#extruderRight").buildMbExtruder({
+                position:"right",
+                width:300,
+                extruderOpacity:.8,
+                textOrientation:"tb",
+                onExtOpen:function(){},
+                onExtContentLoad:function(){},
+                onExtClose:function(){}
+            });
 
-			$.fn.changeLabel=function(text){
-				$(this).find(".flapLabel").html(text);
-				$(this).find(".flapLabel").mbFlipText();
-			};
+            $.fn.changeLabel=function(text){
+                $(this).find(".flapLabel").html(text);
+                $(this).find(".flapLabel").mbFlipText();
+            };
 
-		});
+        });
 
-	</script>
+    </script>
 </head>
 <body >
 <div class="wrapper">
-	<h1>mb.extruder.demo</h1>
+    <h1>mb.extruder.demo</h1>
 
-	<div class="text">
-		<h2> Here is the mb.extruder!</h2>
-		You can have a direct link, a link with a panel, just a panel or a disabled voice.
-		<br>
-		It can be set on top or on left of your page; and if you have mor than one extruder (only on left) they are automatically positioned one behind the other.
-		<br>
-		<br>
-		The TOP extruder <b>positionFixed</b> param is set to <b>false</b>, so it scrolls with the page; the LEFT extruders <b>positionFixed</b> param is set to <b>true</b> (the default value), so they kip their position even when page scrolls.
-		<br>
-		<br>
-		You can disable or anable dinamically each voice of your extruder using the <b>$.fn.disableExtruderVoice()</b> or <b>$.fn.enableExtruderVoice()</b> methods.
-		<br>
-		You can open or close any extrude panel invoking: <b>$.fn.closeMbExtruder()</b> or <b>$.fn.openMbExtruder()</b>  methods.
-		<br>
-		<h3>Try now:</h3>
-		<span class="btn" onclick="$('#extruderTop').openMbExtruder(true);setTimeout(function(){$('#top2').disableExtruderVoice();},400);"><a style="color:red">disable</a> second voice of mbExtruder Top</span>
-		<span class="btn" onclick="setTimeout(function(){$('#top2').enableExtruderVoice();},400);"><a style="color:green">enable</a> second voice of mbExtruder Top</span>
-		<span class="btn" onclick="$('#extruderLeft').openMbExtruder(true);$('#extruderLeft').openPanel()">open "Our network"</span>
-		<span class="btn" onclick="$('#extruderLeft').closeMbExtruder();">close "Our network"</span>
-		<br><br><input type="text" id="label">  <span class="btn" onclick="$('#extruderLeft').changeLabel($('#label').val()!=''?$('#label').val():'newLabel');">change left label</span>
-		<br>
-		<br>
-		take a look at the documentation to see how simple is the configuration!
+    <div class="text">
+        <h2> Here is the mb.extruder!</h2>
+        You can have a direct link, a link with a panel, just a panel or a disabled voice.
+        <br>
+        It can be set on top or on left of your page; and if you have mor than one extruder (only on left) they are automatically positioned one behind the other.
+        <br>
+        <br>
+        The TOP extruder <b>positionFixed</b> param is set to <b>false</b>, so it scrolls with the page; the LEFT extruders <b>positionFixed</b> param is set to <b>true</b> (the default value), so they kip their position even when page scrolls.
+        <br>
+        <br>
+        You can disable or anable dinamically each voice of your extruder using the <b>$.fn.disableExtruderVoice()</b> or <b>$.fn.enableExtruderVoice()</b> methods.
+        <br>
+        You can open or close any extrude panel invoking: <b>$.fn.closeMbExtruder()</b> or <b>$.fn.openMbExtruder()</b>  methods.
+        <br>
+        <h3>Try now:</h3>
+        <span class="btn" onclick="$('#extruderTop').openMbExtruder(true);setTimeout(function(){$('#top2').disableExtruderVoice();},400);"><a style="color:red">disable</a> second voice of mbExtruder Top</span>
+        <span class="btn" onclick="setTimeout(function(){$('#top2').enableExtruderVoice();},400);"><a style="color:green">enable</a> second voice of mbExtruder Top</span>
+        <span class="btn" onclick="$('#extruderLeft').openMbExtruder(true);$('#extruderLeft').openPanel()">open "Our network"</span>
+        <span class="btn" onclick="$('#extruderLeft').closeMbExtruder();">close "Our network"</span>
+        <br><br><input type="text" id="label">  <span class="btn" onclick="$('#extruderLeft').changeLabel($('#label').val()!=''?$('#label').val():'newLabel');">change left label</span>
+        <br>
+        <br>
+        take a look at the documentation to see how simple is the configuration!
 
-	</div>
-	<div class="longText" style="position:relative;padding-left:50px">
-		<div id="extruderLeft2" class="{title:'content in place'}" >
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin purus orci, volutpat ut pulvinar volutpat, convallis in orci. Quisque eget arcu convallis dui lacinia vestibulum non ut odio. Cras fringilla mollis mattis. Cras dictum rutrum ultricies. Donec auctor, risus eu tincidunt auctor, diam ligula facilisis libero, sit amet interdum felis enim ut est. Maecenas nec nulla quis ante convallis volutpat convallis at justo. Pellentesque quam orci, consectetur sit amet interdum a, tempus eget erat. Nam in ante odio. Vivamus nec augue vitae mi molestie pretium sed id elit. Aenean ultrices auctor ipsum eu vestibulum. Phasellus non dolor vel nisi congue egestas in a eros. Phasellus nunc nulla, interdum ut viverra eu, tristique sed sapien.
-		</div>
-		Phasellus dapibus magna sed nisl interdum ac pellentesque magna sagittis. Maecenas massa leo, condimentum porta consequat in, consequat ac leo. Pellentesque malesuada consequat tortor vel placerat. Suspendisse lorem elit, hendrerit eu blandit at, feugiat id urna. Nunc scelerisque, erat in pharetra cursus, mi eros adipiscing mauris, ac porttitor lacus sem et lectus. Curabitur venenatis adipiscing elementum. Aliquam tristique pulvinar hendrerit. Proin ut tortor dolor. Proin accumsan, libero nec dapibus bibendum, tellus purus molestie est, quis pulvinar est arcu id libero. Morbi vel mauris odio. Integer elementum metus ac eros fringilla congue. Sed est enim, accumsan at malesuada id, bibendum a tortor. Proin id magna eget justo blandit imperdiet sed sit amet neque. Vestibulum luctus, nulla sed vestibulum rutrum, sapien neque laoreet sapien, eget iaculis sem diam quis enim. Aenean sit amet augue neque, sed luctus odio.
-	</div>
+    </div>
+    <div class="longText" style="position:relative;padding-left:50px">
+        <div id="extruderLeft2" class="{title:'content in place'}" >
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin purus orci, volutpat ut pulvinar volutpat, convallis in orci. Quisque eget arcu convallis dui lacinia vestibulum non ut odio. Cras fringilla mollis mattis. Cras dictum rutrum ultricies. Donec auctor, risus eu tincidunt auctor, diam ligula facilisis libero, sit amet interdum felis enim ut est. Maecenas nec nulla quis ante convallis volutpat convallis at justo. Pellentesque quam orci, consectetur sit amet interdum a, tempus eget erat. Nam in ante odio. Vivamus nec augue vitae mi molestie pretium sed id elit. Aenean ultrices auctor ipsum eu vestibulum. Phasellus non dolor vel nisi congue egestas in a eros. Phasellus nunc nulla, interdum ut viverra eu, tristique sed sapien.
+        </div>
+        Phasellus dapibus magna sed nisl interdum ac pellentesque magna sagittis. Maecenas massa leo, condimentum porta consequat in, consequat ac leo. Pellentesque malesuada consequat tortor vel placerat. Suspendisse lorem elit, hendrerit eu blandit at, feugiat id urna. Nunc scelerisque, erat in pharetra cursus, mi eros adipiscing mauris, ac porttitor lacus sem et lectus. Curabitur venenatis adipiscing elementum. Aliquam tristique pulvinar hendrerit. Proin ut tortor dolor. Proin accumsan, libero nec dapibus bibendum, tellus purus molestie est, quis pulvinar est arcu id libero. Morbi vel mauris odio. Integer elementum metus ac eros fringilla congue. Sed est enim, accumsan at malesuada id, bibendum a tortor. Proin id magna eget justo blandit imperdiet sed sit amet neque. Vestibulum luctus, nulla sed vestibulum rutrum, sapien neque laoreet sapien, eget iaculis sem diam quis enim. Aenean sit amet augue neque, sed luctus odio.
+    </div>
 </div>
 <div id="extruderTop" class="{title:'extruder top', url:'parts/extruderTop.html'}"></div>
 <div id="extruderLeft" class="a {title:'What\'s new in this part of world', url:'parts/extruderLeft.html'}"></div>

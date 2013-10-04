@@ -14,7 +14,7 @@
  *  http://www.opensource.org/licenses/mit-license.php
  *  http://www.gnu.org/licenses/gpl.html
  *
- *  last modified: 23/03/13 0.01
+ *  last modified: 02/10/13 22.42
  *  *****************************************************************************
  */
 
@@ -154,7 +154,7 @@
             }
           })
         }else{
-          var container=$("<div>").addClass("text").css({width:extruder.get(0).options.width-20, height:extruder.height()-20, overflowY:"auto"});
+          var container=$("<div>").addClass("text").css({width:extruder.get(0).options.width-20, overflowY:"auto"});
           c.wrapInner(container);
           extruder.setExtruderVoicesAction();
         }

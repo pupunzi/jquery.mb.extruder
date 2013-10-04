@@ -14,12 +14,12 @@
   ~  http://www.opensource.org/licenses/mit-license.php
   ~  http://www.gnu.org/licenses/gpl.html
   ~
-  ~  last modified: 25/04/13 22.58
+  ~  last modified: 04/10/13 14.45
   ~  ******************************************************************************/
   -->
 
 <div id="movie"></div>
-<a id="bgndVideo" href="http://www.youtube.com/watch?v=V2rifmjZuKQ" class="movie {opacity:1, isBgndMovie:{width:'window',mute:true}, ID:'movie', ratio:'16/9',quality:'default'}"></a>
+<a id="bgndVideo" style="display: none" class="player" data-property="{videoURL:'V2rifmjZuKQ',containment:'#movie',autoPlay:true, mute:true, startAt:0, opacity:1}">My video</a>
 <style type="text/css">
   #movie{
     position:relative;
