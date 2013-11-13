@@ -84,7 +84,7 @@
 
         var extW= isVertical?1: this.options.width;
 
-        var c= $("<div/>").addClass("content").css({overflow:"hidden", width:extW});
+        var c= $("<div/>").addClass("extruder-content").css({overflow:"hidden", width:extW});
         c.append(extruderContent);
         extruder.html(c);
 
@@ -227,7 +227,7 @@
       var container=$("<div>").addClass("container");
       if (!($.browser.msie && $.browser.version<=7))
         container.css({width:$(this).get(0).options.width});
-      where.find(".content").wrapInner(container);
+      where.find(".extruder-content").wrapInner(container);
       $.ajax({
         type: "GET",
         url: url,
@@ -256,14 +256,14 @@
       var position= opt.position;
       extruder.mb_bringToFront();
       if (position=="top" || position=="bottom"){
-        extruder.find('.content').slideDown( opt.slideTimer);
+        extruder.find('.extruder-content').slideDown( opt.slideTimer);
         if(opt.onExtOpen) opt.onExtOpen();
       }else{
 
         if(!isIE) $(this).css("opacity",1);
         extruder.find('.ext_wrapper').css({width:""});
-        extruder.find('.content').css({overflowX:"hidden", display:"block"});
-        extruder.find('.content').animate({ width: opt.width}, opt.slideTimer);
+        extruder.find('.extruder-content').css({overflowX:"hidden", display:"block"});
+        extruder.find('.extruder-content').animate({ width: opt.width}, opt.slideTimer);
         if(opt.onExtOpen) opt.onExtOpen();
       }
       if (c) {
@@ -282,13 +282,13 @@
       if(!isIE) extruder.css("opacity",opt.extruderOpacity);
       if(opt.hidePanelsOnClose) extruder.hidePanelsOnClose();
       if (opt.position=="top" || opt.position=="bottom"){
-        extruder.find('.content').slideUp(opt.slideTimer);
+        extruder.find('.extruder-content').slideUp(opt.slideTimer);
         if(opt.onExtClose) opt.onExtClose();
       }else if (opt.position=="left" || opt.position=="right"){
-        extruder.find('.content').css({overflow:"hidden"});
-        extruder.find('.content').animate({ width: 1 }, opt.slideTimer,function(){
+        extruder.find('.extruder-content').css({overflow:"hidden"});
+        extruder.find('.extruder-content').animate({ width: 1 }, opt.slideTimer,function(){
           extruder.find('.ext_wrapper').css({width:1});
-          extruder.find('.content').css({overflow:"hidden",display:"none"});
+          extruder.find('.extruder-content').css({overflow:"hidden",display:"none"});
           if(opt.onExtClose) opt.onExtClose();
         });
       }
