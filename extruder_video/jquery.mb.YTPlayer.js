@@ -14,7 +14,7 @@
  *  http://www.opensource.org/licenses/mit-license.php
  *  http://www.gnu.org/licenses/gpl.html
  *
- *  last modified: 02/10/13 22.42
+ *  last modified: 12/11/13 19.59
  *  *****************************************************************************
  */
 
@@ -577,6 +577,15 @@ function onYouTubePlayerAPIReady() {
 			YTPlayer.videoCounter++;
 			if(YTPlayer.videoCounter>=YTPlayer.videoLength)
 				YTPlayer.videoCounter = 0;
+			jQuery(YTPlayer.playerEl).css({opacity:0});
+			jQuery(YTPlayer).changeMovie(YTPlayer.videos[YTPlayer.videoCounter]);
+		},
+
+		playPrev: function(){
+			var YTPlayer = this.get(0);
+			YTPlayer.videoCounter--;
+			if(YTPlayer.videoCounter==0)
+				YTPlayer.videoCounter = YTPlayer.videoLength;
 			jQuery(YTPlayer.playerEl).css({opacity:0});
 			jQuery(YTPlayer).changeMovie(YTPlayer.videos[YTPlayer.videoCounter]);
 		},
