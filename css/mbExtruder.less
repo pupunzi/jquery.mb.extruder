@@ -6,9 +6,9 @@
  *  Copyright (c) 2001-2013. Matteo Bicocchi (Pupunzi);
  *  Open lab srl, Firenze - Italy
  *  email: matteo@open-lab.com
- *  site: 	http://pupunzi.com
- *  blog:	http://pupunzi.open-lab.com
- * 	http://open-lab.com
+ *  site:   http://pupunzi.com
+ *  blog: http://pupunzi.open-lab.com
+ *  http://open-lab.com
  *
  *  Licences: MIT, GPL
  *  http://www.opensource.org/licenses/mit-license.php
@@ -54,12 +54,12 @@
   height:27px;
 }
 
-.extruder .content{
+.extruder .extruder-content{
   display:none;
   background:@mainColor;
 }
 
-.extruder.open .content{
+.extruder.open .extruder-content{
   .shadow();
 }
 
@@ -88,7 +88,7 @@
   .shadow();
   .textShadow();
 }
-.extruder.top .content{
+.extruder.top .extruder-content{
   .roundedCorners(0, 0, 8px, 8px);
 }
 
@@ -117,7 +117,7 @@
   margin-top:-5px;
 }
 
-.extruder.bottom .content{
+.extruder.bottom .extruder-content{
   .roundedCorners(8px, 8px, 0, 0);
 }
 
@@ -132,11 +132,11 @@
   background:url("../elements/extruder_blank.png");
 }
 
-.extruder.left.open .content{
+.extruder.left.open .extruder-content{
   .shadow();
 }
 
-.extruder.left .content{
+.extruder.left .extruder-content{
   border-right:3px solid @mainColor;
 }
 
@@ -173,11 +173,11 @@
   background:url("../elements/extruder_blank.png");
 }
 
-.extruder.right .content{
+.extruder.right .extruder-content{
   border-left:3px solid @mainColor;
 }
 
-.extruder.right.open .content{
+.extruder.right.open .extruder-content{
   .shadow(-2px);
 }
 
@@ -307,5 +307,5 @@
   }
 
 :focus {
-	outline: 0;
+  outline: 0;
 }

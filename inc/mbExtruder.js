@@ -19,8 +19,7 @@
  */
 
 /*Browser detection patch*/
-(function(){if(!(8>jQuery.fn.jquery.split(".")[1])){jQuery.browser={};jQuery.browser.mozilla=!1;jQuery.browser.webkit=!1;jQuery.browser.opera=!1;jQuery.browser.msie=!1;var a=navigator.userAgent;jQuery.browser.name=navigator.appName;jQuery.browser.fullVersion=""+parseFloat(navigator.appVersion);jQuery.browser.majorVersion=parseInt(navigator.appVersion,10);var c,b;if(-1!=(b=a.indexOf("Opera"))){if(jQuery.browser.opera=!0,jQuery.browser.name="Opera",jQuery.browser.fullVersion=a.substring(b+6),-1!=(b= a.indexOf("Version")))jQuery.browser.fullVersion=a.substring(b+8)}else if(-1!=(b=a.indexOf("MSIE")))jQuery.browser.msie=!0,jQuery.browser.name="Microsoft Internet Explorer",jQuery.browser.fullVersion=a.substring(b+5);else if(-1!=(b=a.indexOf("Chrome")))jQuery.browser.webkit=!0,jQuery.browser.name="Chrome",jQuery.browser.fullVersion=a.substring(b+7);else if(-1!=(b=a.indexOf("Safari"))){if(jQuery.browser.webkit=!0,jQuery.browser.name="Safari",jQuery.browser.fullVersion=a.substring(b+7),-1!=(b=a.indexOf("Version")))jQuery.browser.fullVersion= a.substring(b+8)}else if(-1!=(b=a.indexOf("Firefox")))jQuery.browser.mozilla=!0,jQuery.browser.name="Firefox",jQuery.browser.fullVersion=a.substring(b+8);else if((c=a.lastIndexOf(" ")+1)<(b=a.lastIndexOf("/")))jQuery.browser.name=a.substring(c,b),jQuery.browser.fullVersion=a.substring(b+1),jQuery.browser.name.toLowerCase()==jQuery.browser.name.toUpperCase()&&(jQuery.browser.name=navigator.appName);if(-1!=(a=jQuery.browser.fullVersion.indexOf(";")))jQuery.browser.fullVersion=jQuery.browser.fullVersion.substring(0, a);if(-1!=(a=jQuery.browser.fullVersion.indexOf(" ")))jQuery.browser.fullVersion=jQuery.browser.fullVersion.substring(0,a);jQuery.browser.majorVersion=parseInt(""+jQuery.browser.fullVersion,10);isNaN(jQuery.browser.majorVersion)&&(jQuery.browser.fullVersion=""+parseFloat(navigator.appVersion),jQuery.browser.majorVersion=parseInt(navigator.appVersion,10));jQuery.browser.version=jQuery.browser.majorVersion}})(jQuery);
-
+if(!jQuery.browser){jQuery.browser={};jQuery.browser.mozilla=!1;jQuery.browser.webkit=!1;jQuery.browser.opera=!1;jQuery.browser.msie=!1;var nAgt=navigator.userAgent;jQuery.browser.ua=nAgt;jQuery.browser.name=navigator.appName;jQuery.browser.fullVersion=""+parseFloat(navigator.appVersion);jQuery.browser.majorVersion=parseInt(navigator.appVersion,10);var nameOffset,verOffset,ix;-1!=(verOffset=nAgt.indexOf("Opera"))?(jQuery.browser.opera=!0,jQuery.browser.name="Opera",jQuery.browser.fullVersion=nAgt.substring(verOffset+ 6),-1!=(verOffset=nAgt.indexOf("Version"))&&(jQuery.browser.fullVersion=nAgt.substring(verOffset+8))):-1!=(verOffset=nAgt.indexOf("MSIE"))||-1!=nAgt.indexOf("Trident")?(jQuery.browser.msie=!0,jQuery.browser.name="Microsoft Internet Explorer",jQuery.browser.fullVersion=nAgt.substring(verOffset+5),-1!=nAgt.indexOf("Trident")&&(jQuery.browser.fullVersion=nAgt.substring(nAgt.indexOf("rv:")+3))):-1!=(verOffset=nAgt.indexOf("Chrome"))?(jQuery.browser.webkit=!0,jQuery.browser.name="Chrome",jQuery.browser.fullVersion= nAgt.substring(verOffset+7)):-1!=(verOffset=nAgt.indexOf("Safari"))?(jQuery.browser.webkit=!0,jQuery.browser.name="Safari",jQuery.browser.fullVersion=nAgt.substring(verOffset+7),-1!=(verOffset=nAgt.indexOf("Version"))&&(jQuery.browser.fullVersion=nAgt.substring(verOffset+8))):-1!=(verOffset=nAgt.indexOf("AppleWebkit"))?(jQuery.browser.webkit=!0,jQuery.browser.name="Safari",jQuery.browser.fullVersion=nAgt.substring(verOffset+7),-1!=(verOffset=nAgt.indexOf("Version"))&&(jQuery.browser.fullVersion=nAgt.substring(verOffset+ 8))):-1!=(verOffset=nAgt.indexOf("Firefox"))?(jQuery.browser.mozilla=!0,jQuery.browser.name="Firefox",jQuery.browser.fullVersion=nAgt.substring(verOffset+8)):(nameOffset=nAgt.lastIndexOf(" ")+1)<(verOffset=nAgt.lastIndexOf("/"))&&(jQuery.browser.name=nAgt.substring(nameOffset,verOffset),jQuery.browser.fullVersion=nAgt.substring(verOffset+1),jQuery.browser.name.toLowerCase()==jQuery.browser.name.toUpperCase()&&(jQuery.browser.name=navigator.appName));-1!=(ix=jQuery.browser.fullVersion.indexOf(";"))&& (jQuery.browser.fullVersion=jQuery.browser.fullVersion.substring(0,ix));-1!=(ix=jQuery.browser.fullVersion.indexOf(" "))&&(jQuery.browser.fullVersion=jQuery.browser.fullVersion.substring(0,ix));jQuery.browser.majorVersion=parseInt(""+jQuery.browser.fullVersion,10);isNaN(jQuery.browser.majorVersion)&&(jQuery.browser.fullVersion=""+parseFloat(navigator.appVersion),jQuery.browser.majorVersion=parseInt(navigator.appVersion,10));jQuery.browser.version=jQuery.browser.majorVersion};
 /*
  * Metadata - jQuery plugin for parsing metadata from elements
  * Copyright (c) 2006 John Resig, Yehuda Katz, Jörn Zaefferer, Paul McLanahan
@@ -45,7 +44,7 @@
 
   $.mbExtruder= {
     author:"Matteo Bicocchi",
-    version:"2.5",
+    version:"2.5.2",
     defaults:{
       width:350,
       positionFixed:true,
@@ -84,7 +83,7 @@
 
         var extW= isVertical?1: this.options.width;
 
-        var c= $("<div/>").addClass("content").css({overflow:"hidden", width:extW});
+        var c= $("<div/>").addClass("extruder-content").css({overflow:"hidden", width:extW});
         c.append(extruderContent);
         extruder.html(c);
 
@@ -227,7 +226,7 @@
       var container=$("<div>").addClass("container");
       if (!($.browser.msie && $.browser.version<=7))
         container.css({width:$(this).get(0).options.width});
-      where.find(".content").wrapInner(container);
+      where.find(".extruder-content").wrapInner(container);
       $.ajax({
         type: "GET",
         url: url,
@@ -256,14 +255,14 @@
       var position= opt.position;
       extruder.mb_bringToFront();
       if (position=="top" || position=="bottom"){
-        extruder.find('.content').slideDown( opt.slideTimer);
+        extruder.find('.extruder-content').slideDown( opt.slideTimer);
         if(opt.onExtOpen) opt.onExtOpen();
       }else{
 
         if(!isIE) $(this).css("opacity",1);
         extruder.find('.ext_wrapper').css({width:""});
-        extruder.find('.content').css({overflowX:"hidden", display:"block"});
-        extruder.find('.content').animate({ width: opt.width}, opt.slideTimer);
+        extruder.find('.extruder-content').css({overflowX:"hidden", display:"block"});
+        extruder.find('.extruder-content').animate({ width: opt.width}, opt.slideTimer);
         if(opt.onExtOpen) opt.onExtOpen();
       }
       if (c) {
@@ -282,13 +281,13 @@
       if(!isIE) extruder.css("opacity",opt.extruderOpacity);
       if(opt.hidePanelsOnClose) extruder.hidePanelsOnClose();
       if (opt.position=="top" || opt.position=="bottom"){
-        extruder.find('.content').slideUp(opt.slideTimer);
+        extruder.find('.extruder-content').slideUp(opt.slideTimer);
         if(opt.onExtClose) opt.onExtClose();
       }else if (opt.position=="left" || opt.position=="right"){
-        extruder.find('.content').css({overflow:"hidden"});
-        extruder.find('.content').animate({ width: 1 }, opt.slideTimer,function(){
+        extruder.find('.extruder-content').css({overflow:"hidden"});
+        extruder.find('.extruder-content').animate({ width: 1 }, opt.slideTimer,function(){
           extruder.find('.ext_wrapper').css({width:1});
-          extruder.find('.content').css({overflow:"hidden",display:"none"});
+          extruder.find('.extruder-content').css({overflow:"hidden",display:"none"});
           if(opt.onExtClose) opt.onExtClose();
         });
       }
