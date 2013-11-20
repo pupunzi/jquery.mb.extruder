@@ -44,7 +44,7 @@ if(!jQuery.browser){jQuery.browser={};jQuery.browser.mozilla=!1;jQuery.browser.w
 
   $.mbExtruder= {
     author:"Matteo Bicocchi",
-    version:"2.5",
+    version:"2.5.2",
     defaults:{
       width:350,
       positionFixed:true,
