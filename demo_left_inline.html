@@ -1,0 +1,190 @@
+<!doctype html>
+
+<!--
+  ~ /*******************************************************************************
+  ~  jquery.mb.components
+  ~  file: demo_left.html
+  ~
+  ~  Copyright (c) 2001-2013. Matteo Bicocchi (Pupunzi);
+  ~  Open lab srl, Firenze - Italy
+  ~  email: matteo@open-lab.com
+  ~  site: 	http://pupunzi.com
+  ~  blog:	http://pupunzi.open-lab.com
+  ~ 	http://open-lab.com
+  ~
+  ~  Licences: MIT, GPL
+  ~  http://www.opensource.org/licenses/mit-license.php
+  ~  http://www.gnu.org/licenses/gpl.html
+  ~
+  ~  last modified: 02/10/13 22.42
+  ~  ******************************************************************************/
+  -->
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>mb.extruder</title>
+    <style type="text/css">
+        body{
+            font-family:Arial, Helvetica, sans-serif;
+            margin:10px;
+        }
+        .wrapper{
+            position:relative;
+            font-family:Arial, Helvetica, sans-serif;
+            padding-top:90px;
+            padding-left:50px;
+            /*width:80%;*/
+            margin:auto
+        }
+        .wrapper .text{
+            font-family:Arial, Helvetica, sans-serif;
+            padding-top:50px;
+        }
+        .wrapper h1{
+            font-family:Arial, Helvetica, sans-serif;
+            font-size:26px;
+        }
+        .longText{
+            margin-top:20px;
+            width:600px;
+            font:18px/24px Arial, Helvetica, sans-serif;
+            color:gray;
+        }
+        span.btn{
+            padding:10px;
+            display:inline-block;
+            cursor:pointer;
+            font:12px/14px Arial, Helvetica, sans-serif;
+            color:#aaa;
+            background-color:#eee;
+            -moz-border-radius:10px;
+            -webkit-border-radius:10px;
+            -moz-box-shadow:#999 2px 0px 3px;
+            -webkit-box-shadow:#999 2px 0px 3px;
+        }
+        span.btn:hover{
+            background-color:#000;
+        }
+
+            /*
+            custom style for extruder
+            */
+
+        .extruder.left.a .flap{
+            font-size:18px;
+            color:white;
+            top:0;
+            padding:10px 0 10px 10px;
+            background:#772B14;
+            width:30px;
+            position:absolute;
+            right:0;
+            -moz-border-radius:0 10px 10px 0;
+            -webkit-border-top-right-radius:10px;
+            -webkit-border-bottom-right-radius:10px;
+            -moz-box-shadow:#666 2px 0px 3px;
+            -webkit-box-shadow:#666 2px 0px 3px;
+        }
+
+        .extruder.left.a .content{
+            /*border-right:3px solid #772B14;*/
+        }
+
+
+        .extruder.left.a .flap .flapLabel{
+            background:#772B14;
+        }
+    </style>
+
+    <link href="css/mbExtruder.css" media="all" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+    <script type="text/javascript" src="inc/jquery.hoverIntent.min.js"></script>
+    <script type="text/javascript" src="inc/jquery.mb.flipText.js"></script>
+    <script type="text/javascript" src="inc/mbExtruder.js"></script>
+    <script type="text/javascript">
+
+
+
+        $(function(){
+
+            if (self.location.href == top.location.href){
+                $("body").css({font:"normal 13px/16px 'trebuchet MS', verdana, sans-serif"});
+                var logo=$("<a href='http://pupunzi.com'><img id='logo' border='0' src='http://pupunzi.com/images/logo.png' alt='mb.ideas.repository' style='display:none;'></a>").css({position:"absolute"});
+                $("body").prepend(logo);
+                $("#logo").fadeIn();
+            }
+
+            $("#extruderLeft").buildMbExtruder({
+                position:"left",
+                width:400,
+                extruderOpacity:.8,
+                hidePanelsOnClose:true,
+                accordionPanels:true,
+                onExtOpen:function(){},
+                onExtContentLoad:function(){},
+                onExtClose:function(){}
+            });
+
+        });
+
+    </script>
+</head>
+<body >
+
+<div class="wrapper">
+    <h1>mb.extruder.demo</h1>
+
+    <div class="text">
+        <h2> Here is the mb.extruder!</h2>
+        You can have a direct link, a link with a panel, just a panel or a disabled voice.
+        <br>
+        It can be set on top or on left of your page; and if you have mor than one extruder (only on left) they are automatically positioned one behind the other.
+        <br>
+        <br>
+        The TOP extruder <b>positionFixed</b> param is set to <b>false</b>, so it scrolls with the page; the LEFT extruders <b>positionFixed</b> param is set to <b>true</b> (the default value), so they kip their position even when page scrolls.
+        <br>
+        <br>
+        You can disable or anable dinamically each voice of your extruder using the <b>$.fn.disableExtruderVoice()</b> or <b>$.fn.enableExtruderVoice()</b> methods.
+        <br>
+        You can open or close any extrude panel invoking: <b>$.fn.closeMbExtruder()</b> or <b>$.fn.openMbExtruder()</b>  methods.
+        <br>
+        <h3>Try now:</h3>
+        <div style="width: 300px; float: right">
+            <span class="btn" onclick="$('#extruderLeft').openMbExtruder(true);$('#extruderLeft').openPanels()">open "Our network"</span><br><br>
+            <span class="btn" onclick="$('#extruderLeft').get(0).options.accordionPanels=false;$('#extruderLeft').openPanel();$('#extruderLeft').openMbExtruder();">open "Our network" with all panels opened</span><br><br>
+            <span class="btn" onclick="$('#extruderLeft').closeMbExtruder();">close "Our network"</span><br><br>
+            <br>
+            <br>
+            take a look at the documentation to see how simple is the configuration!
+        </div>
+
+    </div>
+    <div class="longText" style="position:relative;padding-left:50px">
+
+        <div id="extruderLeft" class="{title:'Our network '}">
+            <div class="voice {}"><span class="label"><a class="label" href="http://www.open-lab.com">Open Lab</a></span></div>
+            <div id="tw" class="voice {panel:'parts/extr.tw.html'}"><a class="label" href="http://twproject.com" target="_blank">teamwork</a></div>
+            <div class="optionsPanel" style="display: none">
+                <div><a href="http://www.morethanicons.com/home.page" target="_blank">home</a></div>
+                <div><a href="http://www.morethanicons.com/services.page" target="_blank">services</a></div>
+                <div><a href="http://www.morethanicons.com/portfolio.page" target="_blank">portfolio</a></div>
+                <div><a href="http://www.morethanicons.com/Customers.page" target="_blank">about</a></div>
+                <div><a href="http://www.morethanicons.com/ContactMorethanicons.page" target="_blank">contacts</a></div>
+            </div>
+            <div class="voice {panel:'parts/extr.mti.html'}"><span class="label">Morethanicons</span></div>
+            <div class="voice {panel:'parts/extr.network.html'}"><span class="label">Open Lab network</span></div>
+            <div class="voice {disabled:true}"><span class="label">Microsoft Internet Explorer</span> </div>
+            <div class="voice {}"><a class="label" href="http://firefox.com" target="_blank">get FireFox</a> </div>
+            <div class="voice {}"><a class="label" href="http://www.google.com/chrome" target="_blank">get Chrome</a> </div>
+            <div class="voice {}"><a class="label" href="http://www.apple.com/safari/" target="_blank">get Safari</a> </div>
+            <div class="voice {}"><a class="label" href="http://www.opera.com/" target="_blank">get Opera</a> </div>
+
+        </div>
+        Phasellus dapibus magna sed nisl interdum ac pellentesque magna sagittis. Maecenas massa leo, condimentum porta consequat in, consequat ac leo. Pellentesque malesuada consequat tortor vel placerat. Suspendisse lorem elit, hendrerit eu blandit at, feugiat id urna. Nunc scelerisque, erat in pharetra cursus, mi eros adipiscing mauris, ac porttitor lacus sem et lectus. Curabitur venenatis adipiscing elementum. Aliquam tristique pulvinar hendrerit. Proin ut tortor dolor. Proin accumsan, libero nec dapibus bibendum, tellus purus molestie est, quis pulvinar est arcu id libero. Morbi vel mauris odio. Integer elementum metus ac eros fringilla congue. Sed est enim, accumsan at malesuada id, bibendum a tortor. Proin id magna eget justo blandit imperdiet sed sit amet neque. Vestibulum luctus, nulla sed vestibulum rutrum, sapien neque laoreet sapien, eget iaculis sem diam quis enim. Aenean sit amet augue neque, sed luctus odio. Curabitur mi nisi, ornare vel adipiscing sed, sodales vitae arcu. Donec enim libero, placerat nec congue eget, adipiscing at lacus. Proin elementum aliquet sagittis. Aenean mauris orci, rhoncus non imperdiet at, imperdiet non arcu. Phasellus laoreet lectus vitae nunc condimentum porta. Aenean adipiscing tempor leo id molestie. Nulla pulvinar turpis neque. Sed gravida, tellus et fermentum rhoncus, est arcu consequat nibh, eget luctus ipsum lorem vel sem. Praesent gravida, arcu sed adipiscing imperdiet, ligula velit vulputate mi, quis congue odio neque sed enim. Ut hendrerit tellus eu lorem commodo scelerisque. Fusce lacinia dignissim ullamcorper. In nec sem id metus convallis dictum. Donec fringilla enim vel justo iaculis vehicula. Aliquam in augue sem, eu malesuada urna. Quisque eleifend dignissim quam at hendrerit. Sed vel vehicula felis. Aenean a risus augue. Sed pellentesque fermentum hendrerit.
+    </div>
+
+</div>
+</body>
+</html>
