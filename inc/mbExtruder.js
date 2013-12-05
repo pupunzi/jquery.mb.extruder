@@ -64,7 +64,7 @@ if (!jQuery.browser) {
   document.extruder.bottom = 0;
   document.extruder.right = 0;
   document.extruder.idx=0;
-  var isIE=$.browser.msie;
+  var isIE=/MSIE (\d+\.\d+);/.test(navigator.userAgent);;
 
   $.mbExtruder= {
     author:"Matteo Bicocchi",

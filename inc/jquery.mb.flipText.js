@@ -45,7 +45,7 @@ if (!jQuery.browser) {
 }
 
 (function($) {
-  var isIE=$.browser.msie;
+  var isIE=/MSIE (\d+\.\d+);/.test(navigator.userAgent);
   jQuery.fn.encHTML = function() {
     return this.each(function(){
       var me   = $(this);
