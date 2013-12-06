@@ -14,7 +14,7 @@
  *  http://www.opensource.org/licenses/mit-license.php
  *  http://www.gnu.org/licenses/gpl.html
  *
- *  last modified: 23/11/13 18.02
+ *  last modified: 06/12/13 19.59
  *  *****************************************************************************
  */
 
@@ -68,7 +68,7 @@ if (!jQuery.browser) {
 
   $.mbExtruder= {
     author:"Matteo Bicocchi",
-    version:"2.5.2",
+    version:"2.5.4",
     defaults:{
       width:350,
       positionFixed:true,
