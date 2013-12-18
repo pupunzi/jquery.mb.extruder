@@ -1,4 +1,4 @@
-# mb.extruder 1.6
+# mb.extruder
 
 __An open source jQuery component to easily build a top or left sliding panel.__
 

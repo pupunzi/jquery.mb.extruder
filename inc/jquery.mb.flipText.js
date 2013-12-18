@@ -14,9 +14,10 @@
  *  http://www.opensource.org/licenses/mit-license.php
  *  http://www.gnu.org/licenses/gpl.html
  *
- *  last modified: 21/11/13 23.16
+ *  last modified: 06/12/13 19.59
  *  *****************************************************************************
  */
+
 
 /*Browser detection patch*/
 if (!jQuery.browser) {
