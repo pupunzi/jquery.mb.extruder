@@ -14,7 +14,7 @@
  *  http://www.opensource.org/licenses/mit-license.php
  *  http://www.gnu.org/licenses/gpl.html
  *
- *  last modified: 27/01/14 20.02
+ *  last modified: 28/01/14 22.05
  *  *****************************************************************************
  */
 
@@ -74,11 +74,11 @@ if (!jQuery.browser) {
           var rot="-90";
           var ta="end";
           var xFix=0;
-          var yFix=$.browser.opera ? parseInt(w)-(parseInt(w)/4): $.browser.safari?5:0;
+          var yFix=$.browser.opera ? parseInt(w)-(parseInt(w)/4): $.browser.webkit?5:0;
 
           if (tb){
             yFix=$.browser.opera?20:0;
-            xFix= $.browser.safari?(fontsize/4):0;
+            xFix= $.browser.webkit?(fontsize/4):0;
             rot="90, "+((parseInt(w)/2)-xFix)+", "+parseInt(w)/2;
             ta="start";
           }
