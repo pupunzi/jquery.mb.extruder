@@ -14,7 +14,7 @@
  *  http://www.opensource.org/licenses/mit-license.php
  *  http://www.gnu.org/licenses/gpl.html
  *
- *  last modified: 27/01/14 20.02
+ *  last modified: 08/05/14 19.57
  *  *****************************************************************************
  */
 
@@ -102,13 +102,13 @@ if (!jQuery.browser) {
 				extruder.addClass(this.options.position);
 				var isHorizontal = this.options.position=="top" || this.options.position=="bottom";
 				extruderStyle =
-						this.options.position=="top" ?
-						{position:position,top:0,left:"50%",marginLeft:-this.options.width/2,width:this.options.width}:
+								this.options.position=="top" ?
+				{position:position,top:0,left:"50%",marginLeft:-this.options.width/2,width:this.options.width}:
 								this.options.position=="bottom" ?
-								{position:position,bottom:0,left:"50%",marginLeft:-this.options.width/2,width:this.options.width}:
-										this.options.position=="left" ?
-										{position:position,top:0,left:0,width:1}:
-										{position:position,top:0,right:0,width:1};
+				{position:position,bottom:0,left:"50%",marginLeft:-this.options.width/2,width:this.options.width}:
+								this.options.position=="left" ?
+				{position:position,top:0,left:0,width:1}:
+				{position:position,top:0,right:0,width:1};
 				extruder.css(extruderStyle);
 				if(!isIE) extruder.css({opacity:this.options.extruderOpacity});
 				extruder.wrapInner("<div class='ext_wrapper'></div>");
@@ -119,8 +119,8 @@ if (!jQuery.browser) {
 
 
 				if (isHorizontal){
-					this.options.position=="top"?document.extruder.top++:document.extruder.bottom++;
-					if (document.extruder.top>1 || document.extruder.bottom>1){
+					this.options.position=="top"? document.extruder.top++ : document.extruder.bottom++;
+					if (document.extruder.top >1 || document.extruder.bottom>1){
 						alert("more than 1 mb.extruder on top or bottom is not supported jet... hope soon!");
 						return;
 					}
@@ -147,7 +147,7 @@ if (!jQuery.browser) {
 				var flapLabel = extruder.find(".flapLabel");
 				flapLabel.text(txt);
 				if(isVertical){
-					flapLabel.html(txt).css({whiteSpace:"noWrap"});//,height:this.options.flapDim
+					flapLabel.html(txt).css({whiteSpace:"noWrap"});
 					var orientation= this.options.textOrientation == "tb";
 					var labelH=extruder.find('.flapLabel').getFlipTextDim()[1];
 					extruder.find('.flapLabel').mbFlipText(orientation);
@@ -177,15 +177,15 @@ if (!jQuery.browser) {
 						extruder.removeAttr("isOpened");
 					}
 				}).on("mouseenter",function(){
-							if(extruder.get(0).options.autoOpenTime>0){
-								openTimer=setTimeout(function(){
-									extruder.openMbExtruder();
-									$(document).one("click.extruder"+extruder.get(0).idx,function(){extruder.closeMbExtruder();});
-								},extruder.get(0).options.autoOpenTime);
-							}
-						}).on("mouseleave",function(){
-							clearTimeout(openTimer);
-						});
+					if(extruder.get(0).options.autoOpenTime>0){
+						openTimer=setTimeout(function(){
+							extruder.openMbExtruder();
+							$(document).one("click.extruder"+extruder.get(0).idx,function(){extruder.closeMbExtruder();});
+						},extruder.get(0).options.autoOpenTime);
+					}
+				}).on("mouseleave",function(){
+					clearTimeout(openTimer);
+				});
 
 				c.on("mouseleave", function(e){
 					if(extruder.get(0).options.closeOnExternalClick){
@@ -201,9 +201,9 @@ if (!jQuery.browser) {
 						}
 					},extruder.get(0).options.autoCloseTime);
 				}).on("mouseenter", function(){
-							clearTimeout(closeTimer);
-							$(document).off("click.extruder"+extruder.get(0).idx);
-						});
+					clearTimeout(closeTimer);
+					$(document).off("click.extruder"+extruder.get(0).idx);
+				});
 
 				if (isVertical){
 					c.css({ height:"100%"});
@@ -216,6 +216,8 @@ if (!jQuery.browser) {
 					var clicDiv=$("<div/>").css({position:"absolute",top:0,left:0,width:"100%",height:"100%",background:"transparent"});
 					flap.append(clicDiv);
 				}
+
+				this.originalWidth = this.options.width;
 
 				$(window).on("resize",function(){
 					extruder.adjustSize();
@@ -230,20 +232,32 @@ if (!jQuery.browser) {
 			var $extruder = this;
 			var extruder = $extruder.get(0);
 
-			var $wrapper= $extruder.find(".ext_wrapper");
-
 			var isHorizontal = extruder.options.position=="top" || extruder.options.position=="bottom";
 
-			if(!isHorizontal)
-				return;
+			if(isHorizontal){
 
-			if((isHorizontal && $(window).width() < extruder.options.width)){
-				$extruder.css({width:$(window).width(), marginLeft:0, left:0});
-				$extruder.find(".ext_wrapper, .extruder-content, .container").css({width:"100%"});
-			}else{
-				$extruder.css({width:extruder.options.width, left:"50%",marginLeft:-extruder.options.width/2});
-				$extruder.find(".ext_wrapper, .extruder-content, .container").css({width:"100%"});
+				if( $(window).width() < extruder.options.width){
+					$extruder.css({width:$(window).width(), marginLeft:0, left:0});
+					$extruder.find(".ext_wrapper, .extruder-content, .extruder-container").css({width:"100%"});
+				}else{
+					$extruder.css({width:extruder.options.width, left:"50%",marginLeft:-extruder.options.width/2});
+					$extruder.find(".ext_wrapper, .extruder-content, .extruder-container").css({width:"100%"});
+				}
+
+			} else{
+
+				if( ($(window).width()-80) < extruder.originalWidth){
+					extruder.options.width = $(window).width()-80;
+				}else{
+					extruder.options.width = extruder.originalWidth;
+				}
+
+				if($extruder.attr("isOpened")){
+					$extruder.find('.extruder-content').css({width: extruder.options.width});
+					$extruder.find(".ext_wrapper, .extruder-content, .extruder-container").css({width:extruder.options.width});
+				}
 			}
+
 		},
 
 		setMbExtruderContent: function(options){
@@ -261,7 +275,7 @@ if (!jQuery.browser) {
 			var data=this.options.data;
 			var where=$(this), voice;
 			var cb= this.options.callback;
-			var container=$("<div>").addClass("container");
+			var container=$("<div>").addClass("extruder-container");
 			if (!($.browser.msie && $.browser.version<=7))
 				container.css({width:$(this).get(0).options.width});
 			where.find(".extruder-content").wrapInner(container);
@@ -272,7 +286,7 @@ if (!jQuery.browser) {
 				async:true,
 				dataType:"html",
 				success: function(html){
-					where.find(".container").append(html);
+					where.find(".extruder-container").append(html);
 					voice=where.find(".voice");
 					voice.hover(function(){$(this).addClass("hover");},function(){$(this).removeClass("hover");});
 					where.setExtruderVoicesAction();
@@ -285,29 +299,34 @@ if (!jQuery.browser) {
 
 		openMbExtruder:function(c){
 			var extruder= $(this);
+			extruder.adjustSize();
+
 			extruder.attr("isOpened",true);
 			$(document).off("click.extruder"+extruder.get(0).idx);
 			var opt= extruder.get(0).options;
 			extruder.addClass("isOpened");
 			if(!isIE) extruder.css("opacity",1);
-			var position= opt.position;
+			var position = opt.position;
 			extruder.mb_bringToFront();
 			if (position=="top" || position=="bottom"){
 				extruder.find('.extruder-content').slideDown( opt.slideTimer);
 				if(opt.onExtOpen) opt.onExtOpen();
 			}else{
-
 				if(!isIE) $(this).css("opacity",1);
 				extruder.find('.ext_wrapper').css({width:""});
 				extruder.find('.extruder-content').css({overflowX:"hidden", display:"block"});
-				extruder.find('.extruder-content').animate({ width: opt.width}, opt.slideTimer);
+				extruder.find('.extruder-content').animate({ width: opt.width}, opt.slideTimer,function(){
+					extruder.find(".extruder-container").css({width: opt.width});
+				});
 				if(opt.onExtOpen) opt.onExtOpen();
 			}
+
 			if (c) {
 				setTimeout(function(){
 					$(document).one("click.extruder"+extruder.get(0).idx,function(){extruder.closeMbExtruder();});
 				},100);
 			}
+
 		},
 
 		closeMbExtruder:function(){
