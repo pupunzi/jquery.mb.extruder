@@ -304,7 +304,7 @@ jQuery.browser.mobile = jQuery.browser.android || jQuery.browser.blackberry || j
 				async:true,
 				dataType:"html",
 				success: function(html){
-					where.find(".extruder-container").append(html);
+					where.find(".extruder-container").html(html);
 					voice=where.find(".voice");
 					voice.hover(function(){$(this).addClass("hover");},function(){$(this).removeClass("hover");});
 					where.setExtruderVoicesAction();
