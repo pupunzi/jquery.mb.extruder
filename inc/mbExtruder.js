@@ -137,7 +137,6 @@ jQuery.browser.mobile = jQuery.browser.android || jQuery.browser.blackberry || j
 				wrapperStyle={position:"absolute", width:isVertical?1:this.options.width};
 				wrapper.css(wrapperStyle);
 
-
 				if (isHorizontal){
 					this.options.position=="top"? document.extruder.top++ : document.extruder.bottom++;
 					if (document.extruder.top >1 || document.extruder.bottom>1){
@@ -211,7 +210,7 @@ jQuery.browser.mobile = jQuery.browser.android || jQuery.browser.blackberry || j
 					if(extruder.get(0).options.closeOnExternalClick){
 
 						//Chrome bug: FORMELEMENT fire mouseleave event.
-						if(!$(e.target).parents().is(".text"))
+						if(!$(e.target).parents().is(".text") && !$(e.target).is("select"))
 							$(document).one("click.extruder"+extruder.get(0).idx,function(){extruder.closeMbExtruder();});
 					}
 					closeTimer=setTimeout(function(){
