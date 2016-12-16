@@ -123,7 +123,9 @@
                 hidePanelsOnClose:true,
                 accordionPanels:true,
                 onExtOpen:function(){},
-                onExtContentLoad:function(){},
+                onExtContentLoad:function(ext){
+                    console.debug("loaded", ext)
+                },
                 onExtClose:function(){}
             });
 
@@ -152,7 +154,7 @@
         <br>
         <h3>Try now:</h3>
         <div style="width: 300px; float: right">
-            <span class="btn" onclick="$('#extruderLeft').openMbExtruder(true);$('#extruderLeft').openPanels()">open "Our network"</span><br><br>
+            <span class="btn" onclick="$('#extruderLeft').openMbExtruder(true);">open "Our network"</span><br><br>
             <span class="btn" onclick="$('#extruderLeft').get(0).options.accordionPanels=false;$('#extruderLeft').openPanel();$('#extruderLeft').openMbExtruder();">open "Our network" with all panels opened</span><br><br>
             <span class="btn" onclick="$('#extruderLeft').closeMbExtruder();">close "Our network"</span><br><br>
             <br>
