@@ -40,7 +40,6 @@ if (!jQuery.browser) {
       var me   = $(this);
       var html = me.text();
       me.text(html.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g, escape("'")).replace(/"/g,escape('"')));
-//      me.text(html.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g, "’").replace(/"/g,"“"));
     });
   };
   $.mbflipText= {
