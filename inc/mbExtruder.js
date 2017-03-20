@@ -336,7 +336,7 @@ var nAgt=navigator.userAgent;if(!jQuery.browser){jQuery.browser={},jQuery.browse
 		}
 	};
 
-	jQuery.fn.mb_bringToFront= function(){
+	jQuery.fn.mb_bringToFront = function(){
 		var zi=10;
 		$('*').each(function() {
 			if($(this).css("position")=="absolute" ||$(this).css("position")=="fixed"){
